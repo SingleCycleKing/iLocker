@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="text_size_primary">20sp</dimen>
+    <dimen name="text_size_secondary">18sp</dimen>
+    <dimen name="text_size_tertiary">16sp</dimen>
     <dimen name="default_padding">16dp</dimen>
     <dimen name="app_icon_size">50dp</dimen>
 </resources>

@@ -2,7 +2,8 @@
 <resources>
     <color name="white">#fff</color>
 
-    <color name="primary_color">#32be6c</color>
+    <color name="primary_color">#00000000</color>
     <color name="primary_color_dark">#227333</color>
     <color name="activity_background">#000000</color>
+    <color name="actionbar_title_text">#FFF</color>
 </resources>

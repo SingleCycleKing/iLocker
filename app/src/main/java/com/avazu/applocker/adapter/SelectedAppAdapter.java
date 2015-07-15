@@ -17,14 +17,18 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHolder> {
-
+public class SelectedAppAdapter extends RecyclerView.Adapter<SelectedAppAdapter.ViewHolder> {
     private Context mContext;
     private ArrayList<AppModel> mData;
 
-    public AppListAdapter(Context mContext, ArrayList<AppModel> mData) {
+    public SelectedAppAdapter(Context mContext, ArrayList<AppModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
+    }
+
+    public void updateData(ArrayList<AppModel> mData) {
+        this.mData = mData;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -45,7 +49,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return null == mData ? 0 : mData.size();
+        return mData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
