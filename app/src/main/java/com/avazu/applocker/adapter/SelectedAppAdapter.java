@@ -49,7 +49,7 @@ public class SelectedAppAdapter extends RecyclerView.Adapter<SelectedAppAdapter.
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return null == mData ? 0 : mData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

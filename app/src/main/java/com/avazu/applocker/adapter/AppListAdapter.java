@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.database.model.AppModel;
+import com.avazu.applocker.database.model.SortModel;
 
 import java.util.ArrayList;
 
@@ -20,12 +21,14 @@ import butterknife.InjectView;
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<AppModel> mData;
+    private ArrayList<SortModel> mData;
 
-    public AppListAdapter(Context mContext, ArrayList<AppModel> mData) {
+    public AppListAdapter(Context mContext, ArrayList<SortModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
+
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,10 +37,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        AppModel mInfo = mData.get(position);
+        SortModel mInfo = mData.get(position);
         try {
             holder.icon.setImageDrawable(mContext.getPackageManager().getApplicationIcon(mInfo.getPackageName()));
-            holder.label.setText(mInfo.getLabel());
+            holder.label.setText(mInfo.getValues());
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -46,6 +49,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
     @Override
     public int getItemCount() {
         return null == mData ? 0 : mData.size();
+    }
+
+    public void updateData(ArrayList<SortModel> mData) {
+        this.mData = mData;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

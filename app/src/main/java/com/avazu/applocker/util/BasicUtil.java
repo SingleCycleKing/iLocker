@@ -36,4 +36,14 @@ public class BasicUtil {
         b = (b - 30 < 0) ? 0 : b - 30;
         return Color.rgb(r, g, b);
     }
+
+    public static boolean isChinese(char c) {
+        Character.UnicodeBlock mBook = Character.UnicodeBlock.of(c);
+        return mBook == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || mBook == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || mBook == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || mBook == Character.UnicodeBlock.GENERAL_PUNCTUATION
+                || mBook == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+                || mBook == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
+    }
 }
