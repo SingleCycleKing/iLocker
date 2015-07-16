@@ -4,6 +4,15 @@ public class AppModel {
 
     private String packageName;
     private String label;
+    private String sort;
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
 
     public String getPackageName() {
         return packageName;

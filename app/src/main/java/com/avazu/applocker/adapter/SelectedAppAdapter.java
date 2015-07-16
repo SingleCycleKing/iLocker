@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.database.model.AppModel;
+import com.avazu.applocker.util.DebugLog;
 
 import java.util.ArrayList;
 

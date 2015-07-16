@@ -1,13 +1,14 @@
 package com.avazu.applocker.util;
 
-import com.avazu.applocker.database.model.SortModel;
+import com.avazu.applocker.database.model.AppModel;
+
 import java.util.Comparator;
 
-public class PhonemeComparator implements Comparator<SortModel>{
+public class PhonemeComparator implements Comparator<AppModel>{
 
 
     @Override
-    public int compare(SortModel former,SortModel latter) {
+    public int compare(AppModel former,AppModel latter) {
         if (latter.getSort().equals("#")) {
             return -1;
         } else if (former.getSort().equals("#")) {

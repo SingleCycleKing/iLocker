@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.avazu.applocker.database.contract.SelectedAppContract;
 import com.avazu.applocker.database.model.AppModel;
+import com.avazu.applocker.util.DebugLog;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + SelectedAppContract.SelectedApp.TABLE_NAME + " (" +
                     SelectedAppContract.SelectedApp._ID + " INTEGER PRIMARY KEY," +
                     SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE + TEXT_TYPE + COMMA_SEP +
+                    SelectedAppContract.SelectedApp.COLUMN_NAME_SORT + TEXT_TYPE + COMMA_SEP +
                     SelectedAppContract.SelectedApp.COLUMN_NAME_LABEL + TEXT_TYPE +
                     " )";
     private static final String SQL_DELETE_ENTRIES =
@@ -41,11 +43,21 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
 
     }
 
+    public void updateAllData(ArrayList<AppModel> mData) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(SelectedAppContract.SelectedApp.TABLE_NAME, null, null);
+        for (AppModel mModel : mData) {
+            insert(mModel);
+        }
+    }
+
     public void insert(AppModel mApplication) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE, mApplication.getPackageName());
+        values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_SORT, mApplication.getSort());
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_LABEL, mApplication.getLabel());
+
         sqLiteDatabase.insert(SelectedAppContract.SelectedApp.TABLE_NAME, null, values);
     }
 
@@ -56,8 +68,9 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         for (int i = 0; i < cursor.getCount(); i++) {
             AppModel appModel = new AppModel();
-            appModel.setPackageName(cursor.getString(0));
-            appModel.setLabel(cursor.getString(1));
+            appModel.setPackageName(cursor.getString(1));
+            appModel.setSort(cursor.getString(2));
+            appModel.setLabel(cursor.getString(3));
             appModels.add(appModel);
             if (!cursor.isLast()) cursor.moveToNext();
         }

@@ -122,9 +122,7 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
         Arrays.sort(sections, new Comparator<Section>() {
             @Override
             public int compare(Section o, Section o1) {
-                return (o.firstPosition == o1.firstPosition)
-                        ? 0
-                        : ((o.firstPosition < o1.firstPosition) ? -1 : 1);
+                return (o.firstPosition == o1.firstPosition) ? 0 : ((o.firstPosition < o1.firstPosition) ? -1 : 1);
             }
         });
 
@@ -171,9 +169,7 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
 
     @Override
     public long getItemId(int position) {
-        return isSectionHeaderPosition(position)
-                ? Integer.MAX_VALUE - mSections.indexOfKey(position)
-                : mBaseAdapter.getItemId(sectionedPositionToPosition(position));
+        return isSectionHeaderPosition(position) ? Integer.MAX_VALUE - mSections.indexOfKey(position) : mBaseAdapter.getItemId(sectionedPositionToPosition(position));
     }
 
     @Override
