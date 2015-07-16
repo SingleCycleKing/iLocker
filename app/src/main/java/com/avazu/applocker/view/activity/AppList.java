@@ -101,19 +101,19 @@ public class AppList extends BaseActivity {
 
     private void getSort(ArrayList<AppModel> mData) {
         mSections = new ArrayList<>();
-        for (int i =0;i<mData.size();i++) {
-            String label = mData.get(i).getLabel().replace(" ", "");
+        for (AppModel mModel : mData) {
+            String label = mModel.getLabel().replace(" ", "");
             String phoneme;
             if (BasicUtil.isChinese(label.charAt(0)))
-                phoneme = mCharacterParser.getSelling(mData.get(i).getLabel().replace(" ", ""));
-            else phoneme = mData.get(i).getLabel().replace(" ", "");
+                phoneme = mCharacterParser.getSelling(mModel.getLabel().replace(" ", ""));
+            else phoneme = mModel.getLabel().replace(" ", "");
 
             String mSortString = phoneme.substring(0, 1).toUpperCase();
 
             if (mSortString.matches("[A-Z]")) {
-                mData.get(i).setSort(mSortString.toUpperCase());
+                mModel.setSort(mSortString.toUpperCase());
             } else {
-                mData.get(i).setSort("#");
+                mModel.setSort("#");
             }
         }
         Collections.sort(mData, mComparator);

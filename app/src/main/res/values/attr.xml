@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LockButton">
+        <attr name="lock_text" format="string" />
+        <attr name="lock_rippleSpeed" format="float" />
+        <attr name="lock_rippleSize" format="integer" />
+        <attr name="lock_rippleColor" format="integer" />
+    </declare-styleable>
+</resources>

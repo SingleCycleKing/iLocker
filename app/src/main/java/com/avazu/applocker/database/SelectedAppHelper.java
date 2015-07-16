@@ -57,7 +57,6 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE, mApplication.getPackageName());
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_SORT, mApplication.getSort());
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_LABEL, mApplication.getLabel());
-
         sqLiteDatabase.insert(SelectedAppContract.SelectedApp.TABLE_NAME, null, values);
     }
 
@@ -77,4 +76,5 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         cursor.close();
         return appModels;
     }
+
 }

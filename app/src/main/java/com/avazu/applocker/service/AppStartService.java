@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.avazu.applocker.database.SelectedAppHelper;
-import com.avazu.applocker.database.model.AppModel;
-import com.avazu.applocker.util.DebugLog;
-import com.avazu.applocker.view.activity.MainActivity;
+import com.avazu.applocker.view.activity.Lock;
 
 import java.util.List;
 import java.util.Timer;
@@ -39,9 +37,10 @@ public class AppStartService extends Service {
                             for (int i = 0; i < mAppHelper.query().size(); i++) {
                                 if (mAppHelper.query().get(i).getPackageName().equals(runningApp.processName)) {
                                     Intent newIntent = new Intent();
-                                    newIntent.setClass(AppStartService.this, MainActivity.class);
+                                    newIntent.setClass(AppStartService.this, Lock.class);
                                     newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(newIntent);
+                                    break;
                                 }
                             }
                             break;
@@ -49,7 +48,7 @@ public class AppStartService extends Service {
                     }
                 }
             }
-        }, 1000, 5000);
+        }, 1000, 1000);
 
         return START_STICKY;
     }

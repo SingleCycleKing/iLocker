@@ -3,7 +3,9 @@ package com.avazu.applocker.util;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.TypedValue;
 
 import com.avazu.applocker.database.model.AppModel;
 
@@ -45,5 +47,15 @@ public class BasicUtil {
                 || mBook == Character.UnicodeBlock.GENERAL_PUNCTUATION
                 || mBook == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                 || mBook == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
+    }
+
+    public static int spToPx(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
+    public static int dpToPx(float dp, Resources resources) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
+        return (int) px;
     }
 }
