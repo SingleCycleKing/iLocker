@@ -22,7 +22,6 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
     private int mTextResourceId;
     private RecyclerView.Adapter mBaseAdapter;
     private SparseArray<Section> mSections = new SparseArray<>();
-    private RecyclerView mRecyclerView;
 
 
     public SectionedGridRecyclerViewAdapter(Context context, int sectionResourceId, int textResourceId, RecyclerView recyclerView, RecyclerView.Adapter baseAdapter) {
@@ -30,7 +29,6 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
         mTextResourceId = textResourceId;
         mBaseAdapter = baseAdapter;
         mContext = context;
-        mRecyclerView = recyclerView;
 
         mBaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -58,7 +56,7 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
             }
         });
 
-        final GridLayoutManager layoutManager = (GridLayoutManager) (mRecyclerView.getLayoutManager());
+        final GridLayoutManager layoutManager = (GridLayoutManager) (recyclerView.getLayoutManager());
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -115,9 +113,6 @@ public class SectionedGridRecyclerViewAdapter extends RecyclerView.Adapter<Recyc
             this.title = title;
         }
 
-        public CharSequence getTitle() {
-            return title;
-        }
     }
 
 
