@@ -6,4 +6,7 @@
     <string name="title_activity_app_list">AppList</string>
     <string name="selected">Have Selected</string>
     <string name="title_activity_lock">Lock</string>
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
+    <string name="title_activity_setting">Setting</string>
 </resources>

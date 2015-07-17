@@ -1,10 +1,12 @@
 package com.avazu.applocker.view.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.adapter.AppListAdapter;
@@ -23,8 +25,17 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class AppList extends BaseActivity {
+
+    private ArrayList<AppModel> mAppInfoList;
+    private ArrayList<AppModel> mSelectedInfoList;
+    private SelectedAppAdapter mSelectedAppAdapter;
+    private CharacterParser mCharacterParser;
+    private PhonemeComparator mComparator;
+    private SelectedAppHelper mAppHelper;
+    private List<SectionedGridRecyclerViewAdapter.Section> mSections;
 
     @InjectView(R.id.app_list)
     RecyclerView mAppList;
@@ -35,20 +46,25 @@ public class AppList extends BaseActivity {
     @InjectView(R.id.selected_section)
     SectionView mSelectedSection;
 
+    @InjectView(R.id.toolbar_setting)
+    ImageView setting;
 
-    private ArrayList<AppModel> mAppInfoList;
-    private ArrayList<AppModel> mSelectedInfoList;
-    private SelectedAppAdapter mSelectedAppAdapter;
-    private CharacterParser mCharacterParser;
-    private PhonemeComparator mComparator;
-    private SelectedAppHelper mAppHelper;
-    private List<SectionedGridRecyclerViewAdapter.Section> mSections;
+    @OnClick(R.id.toolbar_setting)
+    void set() {
+        startActivity(new Intent(this, Setting.class));
+        overridePendingTransition(R.anim.in_from_end,R.anim.hold);
+    }
+
+    @Override
+    protected String setTitle() {
+        return "App Lock";
+    }
 
     @Override
     protected void init() {
         mAppInfoList = BasicUtil.getAllApplication(this);
-        if (null != getSupportActionBar())
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setting.setVisibility(View.VISIBLE);
 
         mAppHelper = new SelectedAppHelper(this);
         mSelectedSection.setTitle("Have Selected");
@@ -56,7 +72,6 @@ public class AppList extends BaseActivity {
         mSelectedAppAdapter = new SelectedAppAdapter(this, mSelectedInfoList);
 
         initAppList();
-
         mSelectedList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mSelectedList.setItemAnimator(new DefaultItemAnimator());
         mSelectedList.setAdapter(mSelectedAppAdapter);
@@ -71,7 +86,6 @@ public class AppList extends BaseActivity {
         getSort(mAppInfoList);
         AppListAdapter mAdapter = new AppListAdapter(this, mAppInfoList);
         mSections = new ArrayList<>();
-
 
         for (int i = 0; i < mAppInfoList.size(); i++) {
             if (0 == i)

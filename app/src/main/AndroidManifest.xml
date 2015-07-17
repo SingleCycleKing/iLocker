@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.avazu.applocker">
+    package="com.avazu.applocker" >
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,19 +11,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".view.activity.MainActivity"
-            android:label="@string/app_name">
+            android:name=".view.activity.AppList"
+            android:label="@string/title_activity_app_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activity.AppList"
-            android:label="@string/title_activity_app_list" />
 
         <service
             android:name=".service.AppStartService"
@@ -35,7 +32,7 @@
         <receiver
             android:name=".service.StickyReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
@@ -49,6 +46,10 @@
             android:name=".view.activity.Lock"
             android:label="@string/title_activity_lock"
             android:launchMode="singleTask" />
+        <activity
+            android:name=".view.activity.Setting"
+            android:label="@string/title_activity_setting" >
+        </activity>
     </application>
 
 </manifest>

@@ -3,20 +3,23 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryDark">@color/primary_color_dark</item>
-        <item name="colorAccent">@color/primary_color</item>
-        <item name="android:windowBackground">@color/activity_background</item>
-        <item name="android:statusBarColor">@color/primary_color</item>
+        <item name="colorAccent">#32be6c</item>
+        <item name="android:textColorSecondary">#FFF</item>
+        <item name="android:windowBackground">@mipmap/background</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
     <style name="Widget.MyApp.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="theme">@style/ThemeOverlay.MyApp.ActionBar</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
     <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/actionbar_title_text</item>
         <item name="android:textColorSecondary">@color/actionbar_title_text</item>
     </style>
+
+    <style name="Animation" parent="android:style/Animation.Activity" />
 
 
 </resources>

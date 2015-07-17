@@ -2,9 +2,10 @@
 <resources>
     <color name="white">#fff</color>
 
-    <color name="primary_color">#00000000</color>
-    <color name="primary_color_dark">#227333</color>
+    <color name="primary_color">#673AB7</color>
+    <color name="primary_color_dark">#512DA8</color>
     <color name="activity_background">#000000</color>
     <color name="actionbar_title_text">#FFF</color>
     <color name="hint_color">#5affffff</color>
+    <color name="transparent">#00000000</color>
 </resources>

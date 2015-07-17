@@ -3,16 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/background"
-    tools:context=".MainActivity">
+    tools:context="com.avazu.applocker.view.activity.Setting">
 
     <include layout="@layout/toolbar" />
 
-    <TextView
-        android:id="@+id/choose"
-        android:text="选择应用"
-        android:textColor="@color/white"
-        android:padding="@dimen/default_padding"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/setting_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

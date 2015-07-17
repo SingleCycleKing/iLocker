@@ -18,10 +18,12 @@ public class Lock extends BaseActivity {
 
 
     @Override
-    protected void init() {
-        if (null != getSupportActionBar())
-            getSupportActionBar().setTitle("输入密码");
+    protected String setTitle() {
+        return "Input Your Password";
+    }
 
+    @Override
+    protected void init() {
         mKeyboard.setListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
