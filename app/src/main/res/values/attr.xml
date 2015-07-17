@@ -6,4 +6,9 @@
         <attr name="lock_rippleSize" format="integer" />
         <attr name="lock_rippleColor" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="Indicator">
+        <attr name="circleColor" format="color" />
+        <attr name="stuffColor" format="color" />
+    </declare-styleable>
 </resources>

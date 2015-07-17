@@ -1,6 +1,9 @@
 package com.avazu.applocker.view.activity;
 
+import android.view.animation.Animation;
+
 import com.avazu.applocker.R;
+import com.avazu.applocker.view.widget.Indicator;
 import com.avazu.applocker.view.widget.Keyboard;
 
 import butterknife.InjectView;
@@ -10,21 +13,41 @@ public class Lock extends BaseActivity {
     @InjectView(R.id.lock_keyboard)
     Keyboard mKeyboard;
 
+    @InjectView(R.id.lock_indicator)
+    Indicator mIndicator;
+
 
     @Override
     protected void init() {
         if (null != getSupportActionBar())
             getSupportActionBar().setTitle("输入密码");
 
-        mKeyboard.setCorrectPassword("1111");
-        mKeyboard.setOnPasswordInput(new Keyboard.OnPasswordInput() {
+        mKeyboard.setListener(new Animation.AnimationListener() {
             @Override
-            public void onPasswordInput(boolean isCorrected) {
-                if (isCorrected) {
-                    finish();
-                } else mKeyboard.shake();
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mIndicator.restore();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
             }
         });
+
+        mIndicator.setKeyboard(mKeyboard);
+        mIndicator.setOnPasswordInputCompleted(new Indicator.OnPasswordInputCompleted() {
+            @Override
+            public void onPasswordInputCompleted(String password) {
+                if (password.equals("1111")) finish();
+                else mKeyboard.shake();
+            }
+        });
+
     }
 
     @Override

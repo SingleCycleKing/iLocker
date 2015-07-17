@@ -16,7 +16,7 @@ import butterknife.InjectView;
 public class KeyboardAdapter extends RecyclerView.Adapter<KeyboardAdapter.ViewHolder> {
 
     private Context mContext;
-    private int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    private String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"};
 
     public KeyboardAdapter(Context mContext) {
         this.mContext = mContext;
@@ -29,11 +29,11 @@ public class KeyboardAdapter extends RecyclerView.Adapter<KeyboardAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.lockButton.setText(String.valueOf(numbers[position]));
+        holder.lockButton.setText(numbers[position]);
     }
 
-    public String getText(int position){
-        return String.valueOf(numbers[position]);
+    public String getText(int position) {
+        return numbers[position];
     }
 
     @Override

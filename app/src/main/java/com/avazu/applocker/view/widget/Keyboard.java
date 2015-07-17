@@ -14,19 +14,16 @@ import android.widget.LinearLayout;
 import com.avazu.applocker.R;
 import com.avazu.applocker.adapter.KeyboardAdapter;
 import com.avazu.applocker.listener.OnRecyclerItemClickListener;
-import com.avazu.applocker.util.DebugLog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class Keyboard extends LinearLayout {
 
-    private String password = "";
     private KeyboardAdapter mAdapter;
-    private int time = 0;
     private OnPasswordInput onPasswordInput;
-    private String correctPassword;
     private Animation animation;
+    private Animation.AnimationListener mListener;
 
     @InjectView(R.id.keyboard_list)
     RecyclerView mKeyboard;
@@ -39,17 +36,19 @@ public class Keyboard extends LinearLayout {
                 R.layout.keyboard, this, true);
         ButterKnife.inject(this, view);
 
-         animation = AnimationUtils.loadAnimation(context,R.anim.shake);
+        animation = AnimationUtils.loadAnimation(context, R.anim.shake);
 
         init(context);
+
+    }
+    public void setListener(Animation.AnimationListener mListener) {
+        this.mListener = mListener;
+        animation.setAnimationListener(mListener);
     }
 
-    public void shake(){
-       this.startAnimation(animation);
-    }
+    public void shake() {
+        this.startAnimation(animation);
 
-    public void setCorrectPassword(String correctPassword) {
-        this.correctPassword = correctPassword;
     }
 
     public void setOnPasswordInput(OnPasswordInput onPasswordInput) {
@@ -64,18 +63,12 @@ public class Keyboard extends LinearLayout {
         mKeyboard.addOnItemTouchListener(new OnRecyclerItemClickListener(context, new OnRecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                password += mAdapter.getText(position);
-                time++;
-                if (time == 4) {
-                    onPasswordInput.onPasswordInput(password.equals(correctPassword));
-                    password = "";
-                    time = 0;
-                }
+                onPasswordInput.onPasswordInput(mAdapter.getText(position));
             }
         }));
     }
 
     public interface OnPasswordInput {
-        void onPasswordInput(boolean isCorrected);
+        void onPasswordInput(String password);
     }
 }
