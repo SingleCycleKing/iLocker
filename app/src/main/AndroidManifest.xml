@@ -49,10 +49,10 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".view.activity.Setting"
-            android:label="@string/title_activity_setting"></activity>
+            android:label="@string/title_activity_setting"/>
         <activity
             android:name=".view.activity.SetPassword"
-            android:label="@string/title_activity_set_password"></activity>
+            android:label="@string/title_activity_set_password"/>
     </application>
 
 </manifest>

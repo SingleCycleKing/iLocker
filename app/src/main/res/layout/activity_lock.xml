@@ -8,15 +8,9 @@
 
     <include layout="@layout/toolbar" />
 
-    <com.avazu.applocker.view.widget.Indicator
-        android:id="@+id/lock_indicator"
-        android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:layout_margin="10dp" />
-
-    <com.avazu.applocker.view.widget.Keyboard
-        android:padding="@dimen/default_padding"
-        android:id="@+id/lock_keyboard"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/lock_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>
