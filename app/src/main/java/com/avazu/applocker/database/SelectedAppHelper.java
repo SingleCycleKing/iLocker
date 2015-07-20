@@ -60,7 +60,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(SelectedAppContract.SelectedApp.TABLE_NAME, null, values);
     }
 
-    public ArrayList<AppModel> query() {
+    public ArrayList<AppModel> queryAll() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<AppModel> appModels = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SelectedAppContract.SelectedApp.TABLE_NAME, null);
@@ -75,6 +75,17 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return appModels;
+    }
+
+    public AppModel queryData(String packageName) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(SelectedAppContract.SelectedApp.TABLE_NAME, new String[]{SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE}, "app_package=?", new String[]{packageName}, null, null, null);
+        cursor.moveToFirst();
+        AppModel appModel = new AppModel();
+        appModel.setPackageName(cursor.getString(1));
+        appModel.setSort(cursor.getString(2));
+        appModel.setLabel(cursor.getString(3));
+        return appModel;
     }
 
 }

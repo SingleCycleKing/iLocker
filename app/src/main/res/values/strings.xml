@@ -9,4 +9,16 @@
     <string name="setting">Setting</string>
     <string name="about">About</string>
     <string name="title_activity_setting">Setting</string>
+
+    <string-array name="setting">
+        <item>Change password</item>
+        <item>Vibrate on touch</item>
+        <item>Make pattern visible</item>
+    </string-array>
+
+    <string name="lock_once">Lock apps after the device is locked</string>
+    <string name="lock_every_time">Lock every time you launch an app</string>
+
+    <string name="title_activity_set_password">SetPassword</string>
+    <string name="set_password_tip">Input your unlock password</string>
 </resources>

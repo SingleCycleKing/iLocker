@@ -84,10 +84,6 @@ public class CharacterParser {
         return resource;
     }
 
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
     /**
      * 汉字转成ASCII码
      */
@@ -102,9 +98,9 @@ public class CharacterParser {
                 asc = bytes[0];
             }
             if (bytes.length == 2) {
-                int hightByte = 256 + bytes[0];
+                int highByte = 256 + bytes[0];
                 int lowByte = 256 + bytes[1];
-                asc = (256 * hightByte + lowByte) - 256 * 256;
+                asc = (256 * highByte + lowByte) - 256 * 256;
             }
         } catch (Exception e) {
             System.out.println("ERROR:ChineseSpelling.class-getChsAscii(String chs)" + e);

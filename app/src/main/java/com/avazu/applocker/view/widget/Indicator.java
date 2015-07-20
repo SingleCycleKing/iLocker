@@ -33,7 +33,7 @@ public class Indicator extends View {
         circlePaint.setColor(Color.WHITE);
         circlePaint.setAntiAlias(true);
         circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeWidth(5);
+        circlePaint.setStrokeWidth(3);
 
         stuffPaint = new Paint();
         stuffPaint.setAntiAlias(true);
@@ -47,7 +47,6 @@ public class Indicator extends View {
         childWidth = MeasureSpec.getSize(widthMeasureSpec) / 4;
         childWidth = childWidth > height ? height : childWidth;
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -63,7 +62,6 @@ public class Indicator extends View {
             float centerY =  height / 2;
             canvas.drawCircle(centerX, centerY, childWidth / 4, paint);
         }
-
     }
 
     public Keyboard getKeyboard() {

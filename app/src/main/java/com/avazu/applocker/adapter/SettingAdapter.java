@@ -1,13 +1,20 @@
 package com.avazu.applocker.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.avazu.applocker.R;
+import com.avazu.applocker.util.AppConstant;
+import com.avazu.applocker.view.widget.CheckButton;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -15,9 +22,16 @@ import butterknife.InjectView;
 public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
+    private String[] titles;
+    private SharedPreferences settings;
+    private ArrayList<CheckButton> checkButtons;
+
 
     public SettingAdapter(Context mContext) {
         this.mContext = mContext;
+        titles = mContext.getResources().getStringArray(R.array.setting);
+        settings = mContext.getSharedPreferences(AppConstant.APP_SETTING, 0);
+        checkButtons = new ArrayList<>();
     }
 
     @Override
@@ -26,8 +40,6 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case 0:
                 return new ArrowViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_arrow_setting, parent, false));
             case 1:
-                return new CheckViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_check_setting, parent, false));
-            case 2:
                 return new SwitchViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_switch_setting, parent, false));
         }
         return null;
@@ -38,28 +50,45 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         switch (getItemViewType(position)) {
             case 0:
                 ArrowViewHolder arrowHolder = (ArrowViewHolder) holder;
-                arrowHolder.text.setText("TEST");
+                arrowHolder.text.setText(titles[position]);
                 break;
             case 1:
-                CheckViewHolder checkHolder = (CheckViewHolder) holder;
-                checkHolder.text.setText("TEST");
-                break;
-            case 2:
+                final int mPosition = position;
                 SwitchViewHolder switchHolder = (SwitchViewHolder) holder;
-                switchHolder.text.setText("TEST");
+                switchHolder.text.setText(titles[position]);
+                if (1 == position)
+                    switchHolder.mSwitch.setChecked(settings.getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
+                else if (2 == position)
+                    switchHolder.mSwitch.setChecked(settings.getBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, false));
+                switchHolder.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        SharedPreferences.Editor editor = settings.edit();
+                        if (1 == mPosition)
+                            editor.putBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, isChecked);
+                        else if (2 == mPosition) {
+                            editor.putBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, isChecked);
+                        }
+                        editor.apply();
+                    }
+                });
                 break;
         }
     }
 
+    public CheckButton getCheckBox(int position) {
+        return checkButtons.get(position);
+    }
 
     @Override
     public int getItemViewType(int position) {
-        return position;
+        if (0 == position) return 0;
+        else return 1;
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return null == titles ? 0 : titles.length;
     }
 
     public class ArrowViewHolder extends RecyclerView.ViewHolder {
@@ -72,19 +101,11 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public class CheckViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.item_check_text)
-        TextView text;
-
-        public CheckViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.inject(this, itemView);
-        }
-    }
-
     public class SwitchViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.item_switch_text)
         TextView text;
+        @InjectView(R.id.item_switch_button)
+        SwitchCompat mSwitch;
 
         public SwitchViewHolder(View itemView) {
             super(itemView);

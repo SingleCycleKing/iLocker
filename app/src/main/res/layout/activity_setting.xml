@@ -10,6 +10,66 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/setting_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="200dp"
+        android:padding="@dimen/default_padding" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/default_padding">
+
+        <com.avazu.applocker.view.widget.CheckButton
+            android:id="@+id/item_once_check_box"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/item_once_check_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_once_check_box"
+            android:layout_alignTop="@id/item_once_check_box"
+            android:gravity="center"
+            android:text="@string/lock_once"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginStart="@dimen/default_padding"
+        android:background="@drawable/divider" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/default_padding">
+
+        <com.avazu.applocker.view.widget.CheckButton
+            android:id="@+id/item_every_check_box"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/item_every_check_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_every_check_box"
+            android:layout_alignTop="@id/item_every_check_box"
+            android:gravity="center"
+            android:text="@string/lock_every_time"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginStart="@dimen/default_padding"
+        android:background="@drawable/divider" />
 </LinearLayout>
