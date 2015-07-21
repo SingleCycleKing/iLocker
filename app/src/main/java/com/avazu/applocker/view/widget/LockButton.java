@@ -74,7 +74,6 @@ public class LockButton extends RelativeLayout {
     }
 
 
-
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {

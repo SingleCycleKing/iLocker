@@ -8,4 +8,5 @@
     <color name="actionbar_title_text">#FFF</color>
     <color name="hint_color">#5affffff</color>
     <color name="transparent">#00000000</color>
+    <color name="blur_black">#66000000</color>
 </resources>

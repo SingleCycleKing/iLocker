@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode1"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_side"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode2"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode3"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_side" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode4"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_side"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode5"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode6"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_side" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode7"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_side"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode8"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode9"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_side" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <View
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_side"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle"
+                android:visibility="invisible" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode0"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_middle" />
+
+            <com.avazu.applocker.view.widget.passwd.pincode.PINCodesViewItem
+                android:id="@+id/pinCode10"
+                android:layout_width="@dimen/pincode_side_length"
+                android:layout_height="@dimen/pincode_side_length"
+                android:layout_marginLeft="@dimen/pincode_view_gap_middle"
+                android:layout_marginRight="@dimen/pincode_view_gap_side" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

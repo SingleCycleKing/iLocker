@@ -1,9 +1,11 @@
 package com.avazu.applocker.view.activity;
 
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.adapter.LockPagerAdapter;
+import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.view.fragment.KeyboardLock;
 import com.avazu.applocker.view.fragment.PatternLock;
 
@@ -15,6 +17,7 @@ public class Lock extends BaseActivity {
     ViewPager mViewPager;
 
     private LockPagerAdapter mPagerAdapter;
+    private SharedPreferences settings;
 
     @Override
     protected String setTitle() {
@@ -24,15 +27,19 @@ public class Lock extends BaseActivity {
     @Override
     protected void init() {
         mPagerAdapter = new LockPagerAdapter(getSupportFragmentManager());
+        settings = getSharedPreferences(AppConstant.APP_SETTING, 0);
         initPager();
         mViewPager.setAdapter(mPagerAdapter);
     }
 
     private void initPager() {
-        KeyboardLock keyboardLock = new KeyboardLock();
-        mPagerAdapter.addFragment(keyboardLock, "Keyboard");
-        PatternLock patternLock = new PatternLock();
-        mPagerAdapter.addFragment(patternLock, "Pattern");
+        if (settings.getBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, false)) {
+            PatternLock patternLock = new PatternLock();
+            mPagerAdapter.addFragment(patternLock, "Pattern");
+        } else {
+            KeyboardLock keyboardLock = new KeyboardLock();
+            mPagerAdapter.addFragment(keyboardLock, "Keyboard");
+        }
     }
 
     @Override

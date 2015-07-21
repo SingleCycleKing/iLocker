@@ -1,13 +1,25 @@
 package com.avazu.applocker.util;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.util.TypedValue;
 
+import com.avazu.applocker.R;
 import com.avazu.applocker.database.model.AppModel;
+import com.avazu.applocker.view.widget.passwd.pattern.PatternView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,5 +69,39 @@ public class BasicUtil {
     public static int dpToPx(float dp, Resources resources) {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
         return (int) px;
+    }
+
+    public static Bitmap getWallpaper(Context context) {
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+        return ((BitmapDrawable) wallpaperManager.getDrawable()).getBitmap();
+    }
+
+
+    public static Drawable blur(Context context, Bitmap sentBitmap, int radius) {
+        Bitmap bitmap = Bitmap.createScaledBitmap(sentBitmap, sentBitmap.getWidth() / 2, sentBitmap.getHeight() / 2, false);
+        RenderScript renderScript = RenderScript.create(context);
+        Allocation input = Allocation.createFromBitmap(renderScript, bitmap, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT);
+        Allocation output = Allocation.createTyped(renderScript, input.getType());
+        ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+        script.setRadius(radius);
+        script.setInput(input);
+        script.forEach(output);
+        output.copyTo(bitmap);
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
+        bitmapDrawable.setColorFilter(context.getResources().getColor(R.color.blur_black), PorterDuff.Mode.DST_ATOP);
+        return bitmapDrawable;
+    }
+
+    public static String pattern2String(List<PatternView.Cell> cells) {
+        StringBuilder sb = new StringBuilder();
+        if (cells != null) {
+            for (int i = 0; i < cells.size(); i++) {
+                if (i != 0) {
+                    sb.append(',');
+                }
+                sb.append(cells.get(i).toNumber());
+            }
+        }
+        return sb.toString();
     }
 }

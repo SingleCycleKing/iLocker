@@ -28,7 +28,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
-            android:src="@mipmap/icon_settings"
+            android:src="@mipmap/icon_setting"
             android:visibility="gone" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

@@ -8,4 +8,10 @@
     <dimen name="text_size_tertiary">16sp</dimen>
     <dimen name="default_padding">16dp</dimen>
     <dimen name="app_icon_size">50dp</dimen>
+
+    <dimen name="pincode_side_length">67dp</dimen>
+    <dimen name="pincode_view_gap_middle">20dp</dimen>
+    <dimen name="pincode_view_gap_side">15dp</dimen>
+    <dimen name="password_activity_marginttop">40dp</dimen>
+    <dimen name="password_cancel_margintop">50dp</dimen>
 </resources>
