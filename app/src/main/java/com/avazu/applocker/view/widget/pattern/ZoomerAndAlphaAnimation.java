@@ -1,4 +1,4 @@
-package com.avazu.applocker.view.widget.passwd.pattern;
+package com.avazu.applocker.view.widget.pattern;
 
 import android.graphics.Matrix;
 import android.view.animation.Animation;

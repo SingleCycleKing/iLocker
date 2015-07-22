@@ -5,6 +5,15 @@ public class AppModel {
     private String packageName;
     private String label;
     private String sort;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 
     public String getSort() {
         return sort;

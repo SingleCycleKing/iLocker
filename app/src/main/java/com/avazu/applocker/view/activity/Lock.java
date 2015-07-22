@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 
 import com.avazu.applocker.R;
-import com.avazu.applocker.adapter.LockPagerAdapter;
+import com.avazu.applocker.adapter.PagerAdapter;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.view.fragment.KeyboardLock;
 import com.avazu.applocker.view.fragment.PatternLock;
@@ -16,7 +16,7 @@ public class Lock extends BaseActivity {
     @InjectView(R.id.lock_pager)
     ViewPager mViewPager;
 
-    private LockPagerAdapter mPagerAdapter;
+    private PagerAdapter mPagerAdapter;
     private SharedPreferences settings;
 
     @Override
@@ -26,7 +26,7 @@ public class Lock extends BaseActivity {
 
     @Override
     protected void init() {
-        mPagerAdapter = new LockPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
         settings = getSharedPreferences(AppConstant.APP_SETTING, 0);
         initPager();
         mViewPager.setAdapter(mPagerAdapter);

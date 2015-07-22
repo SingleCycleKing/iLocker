@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppLocker</string>
+    <string name="app_name">App Locker</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -12,6 +12,10 @@
     <string name="selected">Have Selected</string>
     <string name="setting">Setting</string>
     <string name="about">About</string>
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>
+    <string name="go_on">Continue</string>
+    <string name="confirm">Confirm</string>
 
     <string-array name="setting">
         <item>Change password</item>
@@ -22,5 +26,12 @@
     <string name="lock_once">Lock apps after the device is locked</string>
     <string name="lock_every_time">Lock every time you launch an app</string>
     <string name="set_password_tip">Input your unlock password</string>
+    <string name="app_tip">Please choose the apps you want to lock</string>
+    <string name="use_pattern_tip">Use pattern</string>
+    <string name="use_pin_tip">Use passcode</string>
+    <string name="pin_tip">Draw your unlock passcode</string>
+    <string name="pattern_tip">Draw your unlock pattern</string>
+    <string name="confirm_pin">Confirm your unlock passcode</string>
+    <string name="confrrm_pattern">Confirm your unlock pattern</string>
 
 </resources>

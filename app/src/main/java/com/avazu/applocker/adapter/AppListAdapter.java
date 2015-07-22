@@ -28,7 +28,6 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_app, parent, false));
@@ -40,6 +39,8 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         try {
             holder.icon.setImageDrawable(mContext.getPackageManager().getApplicationIcon(mInfo.getPackageName()));
             holder.label.setText(mInfo.getLabel());
+            if (mInfo.isSelected()) holder.selected.setVisibility(View.VISIBLE);
+            else holder.selected.setVisibility(View.GONE);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -60,6 +61,8 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         ImageView icon;
         @InjectView(R.id.item_app_label)
         TextView label;
+        @InjectView(R.id.item_app_selected)
+        ImageView selected;
 
         public ViewHolder(View itemView) {
             super(itemView);

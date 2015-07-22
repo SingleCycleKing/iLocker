@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -19,14 +18,14 @@ import android.util.TypedValue;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.database.model.AppModel;
-import com.avazu.applocker.view.widget.passwd.pattern.PatternView;
+import com.avazu.applocker.view.widget.pattern.PatternView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BasicUtil {
 
-    public static ArrayList<AppModel> getAllApplication(Context context) {
+    public static ArrayList<AppModel> getAllApplication(Context context, ArrayList<AppModel> selectedInfoList) {
         PackageManager manager = context.getPackageManager();
         ArrayList<AppModel> mModels = new ArrayList<>();
         List<ApplicationInfo> apps = manager.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -35,6 +34,15 @@ public class BasicUtil {
                 AppModel mModel = new AppModel();
                 mModel.setPackageName(mInfo.packageName);
                 mModel.setLabel(mInfo.loadLabel(manager).toString());
+                boolean hasItem = false;
+                for (int i = 0; i < selectedInfoList.size(); i++) {
+                    if (selectedInfoList.get(i).getPackageName().equals(mModel.getPackageName())) {
+                        selectedInfoList.remove(i);
+                        hasItem = true;
+                        break;
+                    }
+                }
+                mModel.setIsSelected(hasItem);
                 mModels.add(mModel);
             }
         }

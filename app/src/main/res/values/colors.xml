@@ -9,4 +9,7 @@
     <color name="hint_color">#5affffff</color>
     <color name="transparent">#00000000</color>
     <color name="blur_black">#66000000</color>
+    <color name="green">#0d997b</color>
+
+    <color name="start_background">#3384ff</color>
 </resources>

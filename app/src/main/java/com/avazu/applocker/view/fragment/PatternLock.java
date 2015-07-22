@@ -3,7 +3,7 @@ package com.avazu.applocker.view.fragment;
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
-import com.avazu.applocker.view.widget.passwd.pattern.PatternView;
+import com.avazu.applocker.view.widget.pattern.PatternView;
 
 import java.util.List;
 

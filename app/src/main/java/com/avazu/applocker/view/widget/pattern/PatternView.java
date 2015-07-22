@@ -1,4 +1,4 @@
-package com.avazu.applocker.view.widget.passwd.pattern;
+package com.avazu.applocker.view.widget.pattern;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

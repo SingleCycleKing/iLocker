@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.adapter.AppListAdapter;
 import com.avazu.applocker.adapter.SectionedGridRecyclerViewAdapter;
-import com.avazu.applocker.adapter.SelectedAppAdapter;
 import com.avazu.applocker.database.SelectedAppHelper;
 import com.avazu.applocker.database.model.AppModel;
 import com.avazu.applocker.listener.OnRecyclerItemClickListener;
@@ -20,7 +19,6 @@ import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
 import com.avazu.applocker.util.CharacterParser;
 import com.avazu.applocker.util.PhonemeComparator;
-import com.avazu.applocker.view.widget.SectionView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,23 +31,27 @@ public class AppList extends BaseActivity {
 
     private ArrayList<AppModel> mAppInfoList;
     private ArrayList<AppModel> mSelectedInfoList;
-    private SelectedAppAdapter mSelectedAppAdapter;
     private CharacterParser mCharacterParser;
     private PhonemeComparator mComparator;
     private SelectedAppHelper mAppHelper;
     private List<SectionedGridRecyclerViewAdapter.Section> mSections;
+    private SharedPreferences.Editor editor;
 
     @InjectView(R.id.app_list)
     RecyclerView mAppList;
 
-    @InjectView(R.id.selected_app_list)
-    RecyclerView mSelectedList;
-
-    @InjectView(R.id.selected_section)
-    SectionView mSelectedSection;
-
     @InjectView(R.id.toolbar_setting)
     ImageView setting;
+
+    @InjectView(R.id.start_layout)
+    RelativeLayout mStartLayout;
+
+    @OnClick(R.id.start)
+    void start() {
+        startActivity(new Intent(this, SetPassword.class));
+        finish();
+        overridePendingTransition(R.anim.in_from_end, R.anim.hold);
+    }
 
     @OnClick(R.id.toolbar_setting)
     void set() {
@@ -64,32 +66,24 @@ public class AppList extends BaseActivity {
 
     @Override
     protected void init() {
-        mAppInfoList = BasicUtil.getAllApplication(this);
-
         setting.setVisibility(View.VISIBLE);
 
         initSetting();
 
         mAppHelper = new SelectedAppHelper(this);
-        mSelectedSection.setTitle("Have Selected");
         mSelectedInfoList = mAppHelper.queryAll();
-        mSelectedAppAdapter = new SelectedAppAdapter(this, mSelectedInfoList);
+        mAppInfoList = BasicUtil.getAllApplication(this, mSelectedInfoList);
 
         initAppList();
-        mSelectedList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mSelectedList.setItemAnimator(new DefaultItemAnimator());
-        mSelectedList.setAdapter(mSelectedAppAdapter);
     }
 
     private void initSetting() {
-        SharedPreferences settings = getSharedPreferences(AppConstant.APP_SETTING, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        if (settings.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
-            editor.putBoolean(AppConstant.APP_FIRST_OPEN, false);
-            editor.putBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE,false);
-            editor.putString(AppConstant.APP_LOCK_PASSWORD, "1111");
-            editor.putInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_EVERY_TIME);
-            editor.putBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false);
+        SharedPreferences mSettings = getSharedPreferences(AppConstant.APP_SETTING, 0);
+        editor = mSettings.edit();
+        if (mSettings.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
+            setting.setVisibility(View.GONE);
+            mStartLayout.setVisibility(View.VISIBLE);
+
         }
         editor.apply();
     }
@@ -101,7 +95,7 @@ public class AppList extends BaseActivity {
         mComparator = new PhonemeComparator();
 
         getSort(mAppInfoList);
-        AppListAdapter mAdapter = new AppListAdapter(this, mAppInfoList);
+        final AppListAdapter mAdapter = new AppListAdapter(this, mAppInfoList);
         mSections = new ArrayList<>();
 
         for (int i = 0; i < mAppInfoList.size(); i++) {
@@ -116,24 +110,29 @@ public class AppList extends BaseActivity {
         SectionedGridRecyclerViewAdapter.Section[] mSortSectionList = new SectionedGridRecyclerViewAdapter.Section[mSections.size()];
         final SectionedGridRecyclerViewAdapter mSectionedAdapter = new SectionedGridRecyclerViewAdapter(this, R.layout.section_view, R.id.section_title, mAppList, mAdapter);
         mSectionedAdapter.setSections(mSections.toArray(mSortSectionList));
-        mAppList.setAdapter(mSectionedAdapter);
         mAppList.addOnItemTouchListener(new OnRecyclerItemClickListener(this, new OnRecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                boolean hasItem = false;
-                for (int i = 0; i < mSelectedInfoList.size(); i++) {
-                    if (mSelectedInfoList.get(i).getPackageName().equals(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)).getPackageName())) {
-                        mSelectedInfoList.remove(i);
-                        hasItem = true;
-                        break;
+                if (-1 != mSectionedAdapter.sectionedPositionToPosition(position)) {
+                    boolean hasItem = false;
+                    for (int i = 0; i < mSelectedInfoList.size(); i++) {
+                        if (mSelectedInfoList.get(i).getPackageName().equals(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)).getPackageName())) {
+                            mSelectedInfoList.remove(i);
+                            hasItem = true;
+                            break;
+                        }
                     }
+                    mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)).setIsSelected(!hasItem);
+                    if (!hasItem) {
+                        mSelectedInfoList.add(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)));
+                    }
+                    mAdapter.updateData(mAppInfoList);
                 }
-                if (!hasItem)
-                    mSelectedInfoList.add(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)));
-                mSelectedAppAdapter.updateData(mSelectedInfoList);
             }
         }));
+        mAppList.setAdapter(mSectionedAdapter);
     }
+
 
     private void getSort(ArrayList<AppModel> mData) {
         mSections = new ArrayList<>();

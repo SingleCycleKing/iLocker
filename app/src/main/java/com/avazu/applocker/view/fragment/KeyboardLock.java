@@ -45,7 +45,7 @@ public class KeyboardLock extends BaseFragment {
             @Override
             public void onPasswordInputCompleted(String password) {
                 try {
-                    if (password.equals(AesCrypto.decrypt(AppConstant.APP_KEY, settings.getString(AppConstant.APP_LOCK_PASSWORD, "1111"))))
+                    if (password.equals(AesCrypto.decrypt(AppConstant.APP_KEY, settings.getString(AppConstant.APP_LOCK_PIN_PASSWORD, ""))))
                         getActivity().finish();
                     else mKeyboard.shake();
                 } catch (Exception e) {

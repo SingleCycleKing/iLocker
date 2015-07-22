@@ -5,6 +5,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/app_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <RelativeLayout
+            android:id="@+id/start_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/gradient"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/start"
+                android:layout_width="218dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="21.5dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:text="@string/start"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_secondary" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,30 +47,34 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+
         <include layout="@layout/toolbar" />
 
         <LinearLayout
+            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="100dp"
-            android:orientation="vertical"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:orientation="vertical">
 
-            <com.avazu.applocker.view.widget.SectionView
-                android:id="@+id/selected_section"
+            <View
+                android:id="@+id/head_divider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="2dp"
+                android:background="@drawable/divider" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/selected_app_list"
+            <TextView
+                android:paddingTop="23.5dp"
+                android:paddingBottom="23.5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/app_tip"
+                android:id="@+id/head_text"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/text_size_tertiary" />
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/app_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 </android.support.design.widget.CoordinatorLayout>

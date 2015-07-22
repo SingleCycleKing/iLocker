@@ -1,12 +1,13 @@
 package com.avazu.applocker.view.fragment;
 
-
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
-import com.avazu.applocker.view.widget.passwd.pattern.PatternView;
+import com.avazu.applocker.view.activity.AppList;
+import com.avazu.applocker.view.widget.pattern.PatternView;
 
 import java.util.List;
 
@@ -17,7 +18,9 @@ public class SetPatternPassword extends BaseFragment {
     @InjectView(R.id.pattern_lock)
     PatternView mPatternView;
 
-    private SharedPreferences.Editor editor;
+    private boolean inputCompleted = false;
+    private String inputPassword = "";
+    private boolean confirmCompleted = false;
 
     @Override
     protected void init() {
@@ -40,11 +43,29 @@ public class SetPatternPassword extends BaseFragment {
 
             @Override
             public void onPatterDetected(List<PatternView.Cell> cells) {
-                editor = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).edit();
-                editor.putString(AppConstant.APP_LOCK_PATTERN_PASSWORD, BasicUtil.pattern2String(cells));
-                editor.apply();
+                if (!inputCompleted) {
+                    inputCompleted = true;
+                    inputPassword = BasicUtil.pattern2String(cells);
+                } else if (inputPassword.equals(BasicUtil.pattern2String(cells)))
+                    confirmCompleted = true;
+
             }
         });
+    }
+
+    public void confirm() {
+        if (inputCompleted && !confirmCompleted) {
+            mPatternView.clearPattern();
+        } else if (inputCompleted && confirmCompleted) {
+            if (getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
+                startActivity(new Intent(getActivity(), AppList.class));
+            }
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).edit();
+            editor.putString(AppConstant.APP_LOCK_PATTERN_PASSWORD, inputPassword);
+            editor.putBoolean(AppConstant.APP_FIRST_OPEN, false);
+            editor.apply();
+            getActivity().finish();
+        }
     }
 
     @Override

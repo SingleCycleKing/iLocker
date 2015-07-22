@@ -7,9 +7,8 @@
     android:padding="@dimen/default_padding">
 
     <com.avazu.applocker.view.widget.LockButton
-
         android:id="@+id/key_number"
-        android:layout_width="65dp"
-        android:layout_height="65dp" />
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 
 </LinearLayout>

@@ -31,13 +31,13 @@ public class SetPinPassword extends BaseFragment {
         mIndicator.setOnPasswordInputCompleted(new Indicator.OnPasswordInputCompleted() {
             @Override
             public void onPasswordInputCompleted(String password) {
-                try {
-                    editor.putString(AppConstant.APP_LOCK_PASSWORD, AesCrypto.encrypt(AppConstant.APP_KEY, password));
-                    editor.apply();
-                    getActivity().finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    editor.putString(AppConstant.APP_LOCK_PIN_PASSWORD, AesCrypto.encrypt(AppConstant.APP_KEY, password));
+//                    editor.apply();
+//                    getActivity().finish();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
         });
     }
