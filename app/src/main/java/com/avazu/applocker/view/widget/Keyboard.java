@@ -77,6 +77,6 @@ public class Keyboard extends LinearLayout {
     }
 
     public interface OnPasswordInput {
-        void onPasswordInput(String password);
+        void onPasswordInput(int password);
     }
 }

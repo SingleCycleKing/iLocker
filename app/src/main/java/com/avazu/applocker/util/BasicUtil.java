@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
@@ -100,6 +101,7 @@ public class BasicUtil {
         return bitmapDrawable;
     }
 
+
     public static String pattern2String(List<PatternView.Cell> cells) {
         StringBuilder sb = new StringBuilder();
         if (cells != null) {
@@ -111,5 +113,33 @@ public class BasicUtil {
             }
         }
         return sb.toString();
+    }
+
+    public static String passwordToString(List<Integer> password) {
+        StringBuilder sb = new StringBuilder("");
+        for( int i = 0 ; i < password.size() ; i++ ) {
+            sb.append(password.get(i));
+            if( i != password.size() -1 ) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+        bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

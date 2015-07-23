@@ -29,10 +29,6 @@ public class Setting extends BaseActivity {
 
     private SharedPreferences settings;
 
-    @Override
-    protected String setTitle() {
-        return "App Lock Setting";
-    }
 
     @Override
     protected void init() {

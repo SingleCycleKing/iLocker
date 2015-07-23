@@ -33,5 +33,7 @@
     <string name="pattern_tip">Draw your unlock pattern</string>
     <string name="confirm_pin">Confirm your unlock passcode</string>
     <string name="confrrm_pattern">Confirm your unlock pattern</string>
+    <string name="pin_error">Your PIN didn\'t match, please try again</string>
+    <string name="pattern_error">Your pattern didn\'t match, please try again</string>
 
 </resources>

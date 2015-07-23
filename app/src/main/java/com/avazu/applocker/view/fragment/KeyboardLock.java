@@ -1,13 +1,17 @@
 package com.avazu.applocker.view.fragment;
 
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.view.animation.Animation;
+import android.widget.TextView;
 
 import com.avazu.applocker.R;
-import com.avazu.applocker.util.AesCrypto;
 import com.avazu.applocker.util.AppConstant;
+import com.avazu.applocker.util.BasicUtil;
 import com.avazu.applocker.view.widget.Indicator;
 import com.avazu.applocker.view.widget.Keyboard;
+
+import java.util.List;
 
 import butterknife.InjectView;
 
@@ -19,10 +23,18 @@ public class KeyboardLock extends BaseFragment {
     @InjectView(R.id.lock_indicator)
     Indicator mIndicator;
 
+    @InjectView(R.id.lock_tip)
+    TextView tip;
+
     private SharedPreferences settings;
+
+    private Handler handler = new Handler();
 
     @Override
     protected void init() {
+
+        handler = new Handler();
+
         mKeyboard.setListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -43,11 +55,15 @@ public class KeyboardLock extends BaseFragment {
         mIndicator.setKeyboard(mKeyboard);
         mIndicator.setOnPasswordInputCompleted(new Indicator.OnPasswordInputCompleted() {
             @Override
-            public void onPasswordInputCompleted(String password) {
+            public void onPasswordInputCompleted(List<Integer> password) {
                 try {
-                    if (password.equals(AesCrypto.decrypt(AppConstant.APP_KEY, settings.getString(AppConstant.APP_LOCK_PIN_PASSWORD, ""))))
+                    if (BasicUtil.passwordToString(password).equals(settings.getString(AppConstant.APP_LOCK_PIN_PASSWORD, "")))
                         getActivity().finish();
-                    else mKeyboard.shake();
+                    else {
+                        tip.setText(getResources().getString(R.string.pin_error));
+                        mIndicator.isWrong(true);
+                        handler.postDelayed(runnable, 2000);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,5 +76,13 @@ public class KeyboardLock extends BaseFragment {
         return R.layout.fragment_keyboard_lock;
     }
 
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            tip.setText("");
+            mIndicator.restore();
+            mIndicator.isWrong(false);
+        }
+    };
 
 }

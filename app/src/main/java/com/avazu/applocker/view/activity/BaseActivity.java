@@ -24,14 +24,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutID());
-        getWindow().setBackgroundDrawable(BasicUtil.blur(this, BasicUtil.getWallpaper(this), 10));
+        getWindow().setBackgroundDrawable(BasicUtil.blur(this, BasicUtil.getWallpaper(this), 1));
         ButterKnife.inject(this);
-        mTitle.setText(setTitle());
+        mTitle.setText(getResources().getString(R.string.app_name));
         setSupportActionBar(mToolbar);
         init();
     }
 
-    protected abstract String setTitle();
 
     protected abstract void init();
 

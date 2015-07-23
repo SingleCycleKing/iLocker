@@ -7,6 +7,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Indicator extends View {
 
 
@@ -20,7 +23,7 @@ public class Indicator extends View {
 
     private Keyboard mKeyboard;
 
-    private String mPassword = "";
+    private List<Integer> mPassword;
 
     private OnPasswordInputCompleted onPasswordInputCompleted;
 
@@ -38,6 +41,8 @@ public class Indicator extends View {
         stuffPaint = new Paint();
         stuffPaint.setAntiAlias(true);
         stuffPaint.setColor(Color.parseColor("#9Dffffff"));
+
+        mPassword = new ArrayList<>();
     }
 
     @Override
@@ -59,7 +64,7 @@ public class Indicator extends View {
     private void drawCircle(Canvas canvas, Paint paint, int j) {
         for (int i = 0; i < j; i++) {
             float centerX = i * childWidth + childWidth / 2;
-            float centerY =  height / 2;
+            float centerY = height / 2;
             canvas.drawCircle(centerX, centerY, childWidth / 4, paint);
         }
     }
@@ -72,9 +77,9 @@ public class Indicator extends View {
         this.mKeyboard = mKeyboard;
         mKeyboard.setOnPasswordInput(new Keyboard.OnPasswordInput() {
             @Override
-            public void onPasswordInput(String password) {
+            public void onPasswordInput(int password) {
                 count++;
-                mPassword += password;
+                mPassword.add(password);
                 if (4 == count) {
                     onPasswordInputCompleted.onPasswordInputCompleted(mPassword);
                 }
@@ -85,15 +90,21 @@ public class Indicator extends View {
 
     public void restore() {
         count = 0;
-        mPassword = "";
+        mPassword.clear();
         invalidate();
     }
 
     public interface OnPasswordInputCompleted {
-        void onPasswordInputCompleted(String password);
+        void onPasswordInputCompleted(List<Integer> password);
     }
 
     public void setOnPasswordInputCompleted(OnPasswordInputCompleted onPasswordInputCompleted) {
         this.onPasswordInputCompleted = onPasswordInputCompleted;
+    }
+
+    public void isWrong(boolean isWrong) {
+        if (isWrong)
+            stuffPaint.setColor(Color.parseColor("#66ff0000"));
+        else stuffPaint.setColor(Color.parseColor("#9Dffffff"));
     }
 }

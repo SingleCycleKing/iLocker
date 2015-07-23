@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
     android:paddingBottom="@dimen/default_padding"
     android:paddingTop="@dimen/default_padding">
 
@@ -11,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:contentDescription="@null"
         android:src="@mipmap/icon_arrow" />
 
@@ -18,10 +18,8 @@
         android:id="@+id/item_arrow_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/item_arrow_image"
-        android:layout_alignTop="@id/item_arrow_image"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@color/white" />
-
 
 </RelativeLayout>

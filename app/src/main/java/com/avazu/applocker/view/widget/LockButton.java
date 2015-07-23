@@ -67,6 +67,11 @@ public class LockButton extends RelativeLayout {
         setBackgroundResource(R.drawable.circle);
     }
 
+    public void setTextColor(int color) {
+        textView.setTextColor(color);
+        invalidate();
+    }
+
     public void setText(String text) {
         this.text = text;
         textView.setText(text);

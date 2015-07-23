@@ -48,8 +48,7 @@ public class AppList extends BaseActivity {
 
     @OnClick(R.id.start)
     void start() {
-        startActivity(new Intent(this, SetPassword.class));
-        finish();
+        startActivityForResult(new Intent(this, SetPassword.class), AppConstant.APP_START_REQUEST);
         overridePendingTransition(R.anim.in_from_end, R.anim.hold);
     }
 
@@ -60,9 +59,14 @@ public class AppList extends BaseActivity {
     }
 
     @Override
-    protected String setTitle() {
-        return "App Lock";
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstant.APP_START_REQUEST && resultCode == AppConstant.APP_START_SUCCEED) {
+            setting.setVisibility(View.VISIBLE);
+            mStartLayout.setVisibility(View.GONE);
+        }
     }
+
 
     @Override
     protected void init() {
@@ -83,7 +87,6 @@ public class AppList extends BaseActivity {
         if (mSettings.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
             setting.setVisibility(View.GONE);
             mStartLayout.setVisibility(View.VISIBLE);
-
         }
         editor.apply();
     }
@@ -127,6 +130,7 @@ public class AppList extends BaseActivity {
                         mSelectedInfoList.add(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)));
                     }
                     mAdapter.updateData(mAppInfoList);
+                    mAppHelper.updateAllData(mSelectedInfoList);
                 }
             }
         }));
@@ -162,6 +166,5 @@ public class AppList extends BaseActivity {
     @Override
     public void finish() {
         super.finish();
-        mAppHelper.updateAllData(mSelectedInfoList);
     }
 }

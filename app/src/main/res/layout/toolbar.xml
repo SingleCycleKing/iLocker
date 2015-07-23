@@ -12,14 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/toolbar_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_launcher" />
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/toolbar_icon"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/toolbar_setting"

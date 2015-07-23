@@ -18,7 +18,7 @@ public abstract class BaseNoActionBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutID());
-        getWindow().setBackgroundDrawable(BasicUtil.blur(this, BasicUtil.getWallpaper(this), 10));
+        getWindow().setBackgroundDrawable(BasicUtil.blur(this, BasicUtil.getWallpaper(this), 1));
         ButterKnife.inject(this);
         init();
     }

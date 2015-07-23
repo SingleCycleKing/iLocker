@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.avazu.applocker.R;
+import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.view.fragment.SetPatternPassword;
 import com.avazu.applocker.view.fragment.SetPinPassword;
 
@@ -21,6 +22,7 @@ public class SetPassword extends BaseNoActionBarActivity {
 
     @OnClick(R.id.cancel_set)
     void Cancel() {
+        setResult(AppConstant.APP_START_FAILED);
         finish();
     }
 
@@ -32,6 +34,8 @@ public class SetPassword extends BaseNoActionBarActivity {
             patternPassword.confirm();
         } else {
             inputTip.setText(getResources().getString(R.string.confirm_pin));
+            SetPinPassword pinPassword= (SetPinPassword) mFragments.get(1);
+            pinPassword.confirm();
         }
     }
 

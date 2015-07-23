@@ -1,12 +1,10 @@
 package com.avazu.applocker.view.fragment;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
-import com.avazu.applocker.view.activity.AppList;
 import com.avazu.applocker.view.widget.pattern.PatternView;
 
 import java.util.List;
@@ -54,16 +52,15 @@ public class SetPatternPassword extends BaseFragment {
     }
 
     public void confirm() {
-        if (inputCompleted && !confirmCompleted) {
+        if (inputCompleted && !confirmCompleted)
             mPatternView.clearPattern();
-        } else if (inputCompleted && confirmCompleted) {
-            if (getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
-                startActivity(new Intent(getActivity(), AppList.class));
-            }
+        else if (inputCompleted && confirmCompleted) {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).edit();
             editor.putString(AppConstant.APP_LOCK_PATTERN_PASSWORD, inputPassword);
             editor.putBoolean(AppConstant.APP_FIRST_OPEN, false);
+            editor.putInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PATTERN);
             editor.apply();
+            getActivity().setResult(AppConstant.APP_START_SUCCEED);
             getActivity().finish();
         }
     }

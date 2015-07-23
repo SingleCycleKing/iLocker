@@ -24,7 +24,7 @@ public class AppStartService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
         DebugLog.e("Run Service");
         mAppHelper = new SelectedAppHelper(this);
         Timer timer = new Timer();
@@ -40,6 +40,7 @@ public class AppStartService extends Service {
                                 if (mAppHelper.queryAll().get(i).getPackageName().equals(runningApp.processName)) {
                                     Intent newIntent = new Intent();
                                     newIntent.setClass(AppStartService.this, Lock.class);
+                                    newIntent.putExtra("packageName", runningApp.processName);
                                     newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(newIntent);
                                     break;

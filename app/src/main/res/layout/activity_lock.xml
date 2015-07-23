@@ -8,6 +8,12 @@
 
     <include layout="@layout/toolbar" />
 
+    <ImageView
+        android:id="@+id/lock_icon"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@null" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/lock_pager"
         android:layout_width="match_parent"
