@@ -40,7 +40,7 @@
             android:contentDescription="@null"
             android:padding="10dp"
             android:src="@mipmap/icon_setting"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
 

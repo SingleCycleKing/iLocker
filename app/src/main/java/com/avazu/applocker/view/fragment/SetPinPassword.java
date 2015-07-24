@@ -2,6 +2,7 @@ package com.avazu.applocker.view.fragment;
 
 
 import android.content.SharedPreferences;
+import android.os.Handler;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
@@ -23,10 +24,11 @@ public class SetPinPassword extends BaseFragment {
     private boolean inputCompleted = false;
     private String inputPassword = "";
     private boolean confirmCompleted = false;
+    private Handler handler;
 
     @Override
     protected void init() {
-
+        handler = new Handler();
         mKeyboard.setVibratorEnable(getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
 
         mIndicator.setKeyboard(mKeyboard);
@@ -36,9 +38,12 @@ public class SetPinPassword extends BaseFragment {
                 if (!inputCompleted) {
                     inputPassword = BasicUtil.passwordToString(password);
                     inputCompleted = true;
-                } else
+                } else if (inputPassword.equals(BasicUtil.passwordToString(password)))
                     confirmCompleted = true;
-
+                else if (!inputPassword.equals(BasicUtil.passwordToString(password))) {
+                    mIndicator.isWrong(true);
+                    handler.postDelayed(runnable, 2000);
+                }
             }
         });
     }
@@ -62,5 +67,12 @@ public class SetPinPassword extends BaseFragment {
         return R.layout.fragment_set_pin_password;
     }
 
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            mIndicator.restore();
+            mIndicator.isWrong(false);
+        }
+    };
 
 }

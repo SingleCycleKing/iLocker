@@ -49,9 +49,6 @@ public class AppList extends BaseActivity {
     @InjectView(R.id.start_layout)
     RelativeLayout mStartLayout;
 
-    @InjectView(R.id.app_bar)
-    AppBarLayout mAppBar;
-
     @OnClick(R.id.start)
     void start() {
         startActivityForResult(new Intent(this, SetPassword.class), AppConstant.APP_START_REQUEST);
@@ -131,8 +128,8 @@ public class AppList extends BaseActivity {
                     boolean hasItem = false;
                     for (int i = 0; i < mSelectedInfoList.size(); i++) {
                         if (mSelectedInfoList.get(i).getPackageName().equals(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)).getPackageName())) {
-                            mSelectedInfoList.remove(i);
                             mAppHelper.delete(mSelectedInfoList.get(i).getPackageName());
+                            mSelectedInfoList.remove(i);
                             hasItem = true;
                             break;
                         }

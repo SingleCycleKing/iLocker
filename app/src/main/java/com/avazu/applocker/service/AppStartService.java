@@ -40,36 +40,38 @@ public class AppStartService extends Service {
                 editor = sharedPreferences.edit();
                 unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
                 ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
-                if (runningApps != null) {
-                    for (ActivityManager.RunningAppProcessInfo runningApp : runningApps) {
-                        if (runningApp.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                            for (int i = 0; i < mAppHelper.queryAll().size(); i++) {
-                                if (mAppHelper.queryAll().get(i).getPackageName().equals(runningApp.processName)) {
-                                    boolean unlocked = false;
-                                    for (String name : unlockedSet) {
-                                        if (name.equals(runningApp.processName)) {
-                                            unlocked = true;
-                                            break;
+                if (!sharedPreferences.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
+                    List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
+                    if (runningApps != null) {
+                        for (ActivityManager.RunningAppProcessInfo runningApp : runningApps) {
+                            if (runningApp.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                                for (int i = 0; i < mAppHelper.queryAll().size(); i++) {
+                                    if (mAppHelper.queryAll().get(i).getPackageName().equals(runningApp.processName)) {
+                                        boolean unlocked = false;
+                                        for (String name : unlockedSet) {
+                                            if (name.equals(runningApp.processName)) {
+                                                unlocked = true;
+                                                break;
+                                            }
                                         }
-                                    }
 
-                                    if (!unlocked) {
-                                        if (AppConstant.APP_LOCK_EVERY_TIME == sharedPreferences.getInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE)) {
-                                            unlockedSet.clear();
-                                            editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
-                                            editor.apply();
+                                        if (!unlocked) {
+                                            if (AppConstant.APP_LOCK_EVERY_TIME == sharedPreferences.getInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE)) {
+                                                unlockedSet.clear();
+                                                editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
+                                                editor.apply();
+                                            }
+                                            Intent newIntent = new Intent();
+                                            newIntent.setClass(AppStartService.this, Lock.class);
+                                            newIntent.putExtra("packageName", runningApp.processName);
+                                            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(newIntent);
                                         }
-                                        Intent newIntent = new Intent();
-                                        newIntent.setClass(AppStartService.this, Lock.class);
-                                        newIntent.putExtra("packageName", runningApp.processName);
-                                        newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(newIntent);
+                                        break;
                                     }
-                                    break;
                                 }
+                                break;
                             }
-                            break;
                         }
                     }
                 }

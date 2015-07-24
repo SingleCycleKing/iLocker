@@ -1,6 +1,7 @@
 package com.avazu.applocker.view.fragment;
 
 import android.content.SharedPreferences;
+import android.os.Handler;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
@@ -19,9 +20,11 @@ public class SetPatternPassword extends BaseFragment {
     private boolean inputCompleted = false;
     private String inputPassword = "";
     private boolean confirmCompleted = false;
+    private Handler handler;
 
     @Override
     protected void init() {
+        handler = new Handler();
         mPatternView.setInteractEnable(true);
         mPatternView.setOnPatternListener(new PatternView.OnPatterListener() {
             @Override
@@ -46,7 +49,10 @@ public class SetPatternPassword extends BaseFragment {
                     inputPassword = BasicUtil.pattern2String(cells);
                 } else if (inputPassword.equals(BasicUtil.pattern2String(cells)))
                     confirmCompleted = true;
-
+                else if (!inputPassword.equals(BasicUtil.pattern2String(cells))) {
+                    mPatternView.setWrongFlag(true);
+                    handler.postDelayed(runnable, 1000);
+                }
             }
         });
     }
@@ -70,4 +76,12 @@ public class SetPatternPassword extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_set_pattern_password;
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            mPatternView.setWrongFlag(false);
+            mPatternView.clearPattern();
+        }
+    };
 }

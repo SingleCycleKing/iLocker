@@ -53,7 +53,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
 
     public void delete(String name) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.delete(SelectedAppContract.SelectedApp.TABLE_NAME, SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE, new String[]{name});
+        sqLiteDatabase.delete(SelectedAppContract.SelectedApp.TABLE_NAME, SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE+"=?", new String[]{name});
 
     }
 
