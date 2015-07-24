@@ -23,6 +23,7 @@ public class Keyboard extends LinearLayout {
 
     private KeyboardAdapter mAdapter;
     private OnPasswordInput onPasswordInput;
+    private OnPasswordDelete onPasswordDelete;
     private Animation animation;
     private boolean hasVibrator = false;
     private Vibrator vibrator;
@@ -62,6 +63,10 @@ public class Keyboard extends LinearLayout {
         this.onPasswordInput = onPasswordInput;
     }
 
+    public void setOnPasswordDelete(OnPasswordDelete onPasswordDelete) {
+        this.onPasswordDelete = onPasswordDelete;
+    }
+
     private void init(Context context) {
         mKeyboard.setLayoutManager(new GridLayoutManager(context, 3));
         mKeyboard.setItemAnimator(new DefaultItemAnimator());
@@ -70,13 +75,21 @@ public class Keyboard extends LinearLayout {
         mKeyboard.addOnItemTouchListener(new OnRecyclerItemClickListener(context, new OnRecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                onPasswordInput.onPasswordInput(mAdapter.getText(position));
-                if (hasVibrator) vibrator.vibrate(400);
+                if (10 != position) {
+                    if (11 != position)
+                        onPasswordInput.onPasswordInput(mAdapter.getText(position));
+                    else onPasswordDelete.onPasswordDelete();
+                    if (hasVibrator) vibrator.vibrate(400);
+                }
             }
         }));
     }
 
     public interface OnPasswordInput {
         void onPasswordInput(int password);
+    }
+
+    public interface OnPasswordDelete {
+        void onPasswordDelete();
     }
 }

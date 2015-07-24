@@ -1,13 +1,11 @@
 package com.avazu.applocker.util;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.renderscript.Allocation;
@@ -16,8 +14,6 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.view.Display;
 import android.view.WindowManager;
-
-import com.avazu.applocker.R;
 
 import java.io.ByteArrayOutputStream;
 
@@ -56,9 +52,7 @@ public class UnlockBackground {
         script.setInput(input);
         script.forEach(output);
         output.copyTo(bitmap);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
-        bitmapDrawable.setColorFilter(mContext.getResources().getColor(R.color.icon_blur_black), PorterDuff.Mode.DST_ATOP);
-        return bitmapDrawable;
+        return new BitmapDrawable(bitmap);
     }
 
     public Drawable getBackground() {

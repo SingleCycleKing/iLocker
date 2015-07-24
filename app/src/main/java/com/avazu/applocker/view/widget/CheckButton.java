@@ -17,7 +17,6 @@ public class CheckButton extends View {
     private Paint fillPaint;
 
     private boolean isChecked = false;
-    private OnCheckedChangeListener onCheckedChangeListener;
 
     public CheckButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -32,18 +31,6 @@ public class CheckButton extends View {
         fillPaint.setAntiAlias(true);
         fillPaint.setColor(Color.WHITE);
 
-    }
-
-    public void setOnCheckedChangeListener(final OnCheckedChangeListener onCheckedChangeListener) {
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isChecked = true;
-                invalidate();
-                onCheckedChangeListener.onCheckedChange();
-            }
-        });
-        this.onCheckedChangeListener = onCheckedChangeListener;
     }
 
     @Override
@@ -69,7 +56,4 @@ public class CheckButton extends View {
         radius = height > width ? width / 2 - 5 : height / 2 - 5;
     }
 
-    public interface OnCheckedChangeListener {
-        void onCheckedChange();
-    }
 }

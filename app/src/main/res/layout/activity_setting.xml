@@ -14,6 +14,7 @@
         android:padding="@dimen/default_padding" />
 
     <RelativeLayout
+        android:id="@+id/item_once_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -44,6 +45,7 @@
         android:background="@drawable/divider" />
 
     <RelativeLayout
+        android:id="@+id/item_every_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -54,7 +56,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/item_every_check_text"

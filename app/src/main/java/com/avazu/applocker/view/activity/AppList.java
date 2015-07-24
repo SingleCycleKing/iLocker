@@ -2,9 +2,12 @@ package com.avazu.applocker.view.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,6 +18,7 @@ import com.avazu.applocker.adapter.SectionedGridRecyclerViewAdapter;
 import com.avazu.applocker.database.SelectedAppHelper;
 import com.avazu.applocker.database.model.AppModel;
 import com.avazu.applocker.listener.OnRecyclerItemClickListener;
+import com.avazu.applocker.service.AppStartService;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
 import com.avazu.applocker.util.CharacterParser;
@@ -35,7 +39,6 @@ public class AppList extends BaseActivity {
     private PhonemeComparator mComparator;
     private SelectedAppHelper mAppHelper;
     private List<SectionedGridRecyclerViewAdapter.Section> mSections;
-    private SharedPreferences.Editor editor;
 
     @InjectView(R.id.app_list)
     RecyclerView mAppList;
@@ -45,6 +48,9 @@ public class AppList extends BaseActivity {
 
     @InjectView(R.id.start_layout)
     RelativeLayout mStartLayout;
+
+    @InjectView(R.id.app_bar)
+    AppBarLayout mAppBar;
 
     @OnClick(R.id.start)
     void start() {
@@ -72,6 +78,8 @@ public class AppList extends BaseActivity {
     protected void init() {
         setting.setVisibility(View.VISIBLE);
 
+        startService(new Intent(this, AppStartService.class));
+
         initSetting();
 
         mAppHelper = new SelectedAppHelper(this);
@@ -83,9 +91,12 @@ public class AppList extends BaseActivity {
 
     private void initSetting() {
         SharedPreferences mSettings = getSharedPreferences(AppConstant.APP_SETTING, 0);
-        editor = mSettings.edit();
+        SharedPreferences.Editor editor = mSettings.edit();
         if (mSettings.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
             setting.setVisibility(View.GONE);
+            editor.putInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE);
+            editor.putBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, true);
+            editor.putBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, true);
             mStartLayout.setVisibility(View.VISIBLE);
         }
         editor.apply();
@@ -121,6 +132,7 @@ public class AppList extends BaseActivity {
                     for (int i = 0; i < mSelectedInfoList.size(); i++) {
                         if (mSelectedInfoList.get(i).getPackageName().equals(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)).getPackageName())) {
                             mSelectedInfoList.remove(i);
+                            mAppHelper.delete(mSelectedInfoList.get(i).getPackageName());
                             hasItem = true;
                             break;
                         }
@@ -128,9 +140,9 @@ public class AppList extends BaseActivity {
                     mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)).setIsSelected(!hasItem);
                     if (!hasItem) {
                         mSelectedInfoList.add(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)));
+                        mAppHelper.insert(mAppInfoList.get(mSectionedAdapter.sectionedPositionToPosition(position)));
                     }
                     mAdapter.updateData(mAppInfoList);
-                    mAppHelper.updateAllData(mSelectedInfoList);
                 }
             }
         }));

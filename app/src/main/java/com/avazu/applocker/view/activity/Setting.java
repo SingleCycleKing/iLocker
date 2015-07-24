@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.adapter.SettingAdapter;
@@ -26,6 +27,11 @@ public class Setting extends BaseActivity {
     CheckButton onceCheck;
     @InjectView(R.id.item_every_check_box)
     CheckButton everyCheck;
+
+    @InjectView(R.id.item_once_check)
+    RelativeLayout onceCheckLayout;
+    @InjectView(R.id.item_every_check)
+    RelativeLayout everyCheckLayout;
 
     private SharedPreferences settings;
 
@@ -59,25 +65,29 @@ public class Setting extends BaseActivity {
             onceCheck.setIsChecked(true);
         else everyCheck.setIsChecked(true);
 
-        onceCheck.setOnCheckedChangeListener(new CheckButton.OnCheckedChangeListener() {
+        onceCheckLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChange() {
+            public void onClick(View v) {
                 everyCheck.setIsChecked(false);
+                onceCheck.setIsChecked(true);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE);
                 editor.apply();
             }
         });
 
-        everyCheck.setOnCheckedChangeListener(new CheckButton.OnCheckedChangeListener() {
+        everyCheckLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChange() {
+            public void onClick(View v) {
+                everyCheck.setIsChecked(true);
                 onceCheck.setIsChecked(false);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_EVERY_TIME);
                 editor.apply();
             }
         });
+
+
     }
 
     @Override

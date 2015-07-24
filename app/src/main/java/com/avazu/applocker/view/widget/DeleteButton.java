@@ -14,8 +14,8 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.BasicUtil;
@@ -28,8 +28,6 @@ public class DeleteButton extends RelativeLayout {
     private int rippleSize;
     private int rippleColor;
     private Paint paint;
-    private TextView textView;
-    private String text;
     private float x = -1, y = -1, radius = -1;
 
 
@@ -42,20 +40,17 @@ public class DeleteButton extends RelativeLayout {
             rippleSpeed = array.getFloat(R.styleable.LockButton_lock_rippleSpeed, 10f);
             rippleSize = array.getInt(R.styleable.LockButton_lock_rippleSize, 5);
             rippleColor = array.getColor(R.styleable.LockButton_lock_rippleColor, Color.parseColor("#9Dffffff"));
-            text = array.getString(R.styleable.LockButton_lock_text);
         } finally {
             array.recycle();
         }
 
-        textView = new TextView(context);
-        textView.setText(text);
-        textView.setTextColor(Color.WHITE);
+        ImageView imageView = new ImageView(context);
+        imageView.setImageResource(R.mipmap.delete);
 
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-        textView.setLayoutParams(params);
-        textView.setTextSize(40);
-        addView(textView);
+        imageView.setLayoutParams(params);
+        addView(imageView);
 
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
@@ -64,16 +59,6 @@ public class DeleteButton extends RelativeLayout {
         paint.setColor(rippleColor);
 
         setBackgroundResource(R.drawable.circle);
-    }
-
-    public void setTextColor(int color) {
-        textView.setTextColor(color);
-        invalidate();
-    }
-
-    public void setText(String text) {
-        this.text = text;
-        textView.setText(text);
     }
 
 
@@ -155,7 +140,6 @@ public class DeleteButton extends RelativeLayout {
             y = -1;
         }
     }
-
 
     public void setRippleSize(int rippleSize) {
         this.rippleSize = rippleSize;

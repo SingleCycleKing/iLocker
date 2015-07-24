@@ -56,6 +56,7 @@ public class LockButton extends RelativeLayout {
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         textView.setLayoutParams(params);
+        textView.setTextSize(30);
         addView(textView);
 
         paint = new Paint();

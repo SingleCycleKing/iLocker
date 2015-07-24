@@ -3,15 +3,17 @@ package com.avazu.applocker.view.fragment;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.animation.Animation;
-import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
+import com.avazu.applocker.util.DebugLog;
 import com.avazu.applocker.view.widget.Indicator;
 import com.avazu.applocker.view.widget.Keyboard;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.InjectView;
 
@@ -23,12 +25,12 @@ public class KeyboardLock extends BaseFragment {
     @InjectView(R.id.lock_indicator)
     Indicator mIndicator;
 
-    @InjectView(R.id.lock_tip)
-    TextView tip;
 
-    private SharedPreferences settings;
+    private SharedPreferences sharedPreferences;
 
     private Handler handler = new Handler();
+
+    private Set<String> unlockedSet;
 
     @Override
     protected void init() {
@@ -49,18 +51,28 @@ public class KeyboardLock extends BaseFragment {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        settings = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0);
-        mKeyboard.setVibratorEnable(settings.getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
+        sharedPreferences = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0);
+        mKeyboard.setVibratorEnable(sharedPreferences.getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
 
         mIndicator.setKeyboard(mKeyboard);
         mIndicator.setOnPasswordInputCompleted(new Indicator.OnPasswordInputCompleted() {
             @Override
             public void onPasswordInputCompleted(List<Integer> password) {
                 try {
-                    if (BasicUtil.passwordToString(password).equals(settings.getString(AppConstant.APP_LOCK_PIN_PASSWORD, "")))
+                    if (BasicUtil.passwordToString(password).equals(sharedPreferences.getString(AppConstant.APP_LOCK_PIN_PASSWORD, ""))) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
+                        unlockedSet.add(getArguments().getString("packageName"));
+                        editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
+                        editor.apply();
+
+                        unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
+                        for (String s:unlockedSet){
+                            DebugLog.e(s+"fuck");
+                        }
+
                         getActivity().finish();
-                    else {
-                        tip.setText(getResources().getString(R.string.pin_error));
+                    } else {
                         mIndicator.isWrong(true);
                         handler.postDelayed(runnable, 2000);
                     }
@@ -79,7 +91,6 @@ public class KeyboardLock extends BaseFragment {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            tip.setText("");
             mIndicator.restore();
             mIndicator.isWrong(false);
         }

@@ -6,14 +6,6 @@
     android:orientation="vertical"
     tools:context="com.avazu.applocker.view.fragment.KeyboardLock">
 
-    <TextView
-        android:id="@+id/lock_tip"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_secondary" />
-
     <com.avazu.applocker.view.widget.Indicator
         android:id="@+id/lock_indicator"
         android:layout_width="100dp"

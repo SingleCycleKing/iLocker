@@ -86,6 +86,16 @@ public class Indicator extends View {
                 invalidate();
             }
         });
+        mKeyboard.setOnPasswordDelete(new Keyboard.OnPasswordDelete() {
+            @Override
+            public void onPasswordDelete() {
+                if (count > 0) {
+                    count--;
+                    mPassword.remove(mPassword.size() - 1);
+                    invalidate();
+                }
+            }
+        });
     }
 
     public void restore() {

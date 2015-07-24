@@ -8,28 +8,42 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.avazu.applocker.R;
+import com.avazu.applocker.view.widget.DeleteButton;
 import com.avazu.applocker.view.widget.LockButton;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class KeyboardAdapter extends RecyclerView.Adapter<KeyboardAdapter.ViewHolder> {
+public class KeyboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private Integer[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private Integer[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0};
 
     public KeyboardAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_keyboard, parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case 0:
+                return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_keyboard, parent, false));
+            case 1:
+                return new Delete(LayoutInflater.from(mContext).inflate(R.layout.item_delete, parent, false));
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.lockButton.setText(numbers[position].toString());
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (getItemViewType(position)) {
+            case 0:
+                ViewHolder viewHolder = (ViewHolder) holder;
+                viewHolder.lockButton.setText(numbers[position].toString());
+                if (9 == position) viewHolder.lockButton.setVisibility(View.GONE);
+                break;
+        }
+
     }
 
     public Integer getText(int position) {
@@ -37,8 +51,25 @@ public class KeyboardAdapter extends RecyclerView.Adapter<KeyboardAdapter.ViewHo
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (11 == position)
+            return 1;
+        else return 0;
+    }
+
+    @Override
     public int getItemCount() {
-        return numbers.length;
+        return 12;
+    }
+
+    public class Delete extends RecyclerView.ViewHolder {
+        @InjectView(R.id.delete)
+        DeleteButton delete;
+
+        public Delete(View itemView) {
+            super(itemView);
+            ButterKnife.inject(this, itemView);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

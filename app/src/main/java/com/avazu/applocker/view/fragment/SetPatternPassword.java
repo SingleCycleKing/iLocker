@@ -62,6 +62,7 @@ public class SetPatternPassword extends BaseFragment {
             editor.apply();
             getActivity().setResult(AppConstant.APP_START_SUCCEED);
             getActivity().finish();
+
         }
     }
 

@@ -1,15 +1,16 @@
 package com.avazu.applocker.view.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
-import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
-import com.avazu.applocker.util.DebugLog;
 import com.avazu.applocker.view.widget.pattern.PatternView;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.InjectView;
 
@@ -18,17 +19,18 @@ public class PatternLock extends BaseFragment {
     @InjectView(R.id.pattern_lock)
     PatternView mPatternView;
 
-    @InjectView(R.id.lock_tip)
-    TextView tip;
+    private Set<String> unlockedSet;
 
     private Handler handler;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void init() {
         handler = new Handler();
+        sharedPreferences = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0);
 
-        mPatternView.setPathEnable(getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).getBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, false));
-        mPatternView.setFeedBackEnable(getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
+        mPatternView.setPathEnable(sharedPreferences.getBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, false));
+        mPatternView.setFeedBackEnable(sharedPreferences.getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
         mPatternView.setInteractEnable(true);
         mPatternView.setOnPatternListener(new PatternView.OnPatterListener() {
             @Override
@@ -48,10 +50,14 @@ public class PatternLock extends BaseFragment {
 
             @Override
             public void onPatterDetected(List<PatternView.Cell> cells) {
-                if (BasicUtil.pattern2String(cells).equals(getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).getString(AppConstant.APP_LOCK_PATTERN_PASSWORD, null)))
+                if (BasicUtil.pattern2String(cells).equals(sharedPreferences.getString(AppConstant.APP_LOCK_PATTERN_PASSWORD, null))) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
+                    unlockedSet.add(getArguments().getString("packageName"));
+                    editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
+                    editor.apply();
                     getActivity().finish();
-                else {
-                    tip.setText(getResources().getString(R.string.pattern_error));
+                } else {
                     mPatternView.setWrongFlag(true);
                     handler.postDelayed(runnable, 2000);
                 }
@@ -67,7 +73,6 @@ public class PatternLock extends BaseFragment {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            tip.setText("");
             mPatternView.setWrongFlag(false);
             mPatternView.clearPattern();
         }

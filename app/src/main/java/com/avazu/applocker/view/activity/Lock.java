@@ -2,6 +2,7 @@ package com.avazu.applocker.view.activity;
 
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
@@ -24,8 +25,7 @@ public class Lock extends BaseActivity {
     ImageView icon;
 
     private PagerAdapter mPagerAdapter;
-    private SharedPreferences settings;
-
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -40,17 +40,23 @@ public class Lock extends BaseActivity {
         }
 
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        settings = getSharedPreferences(AppConstant.APP_SETTING, 0);
+        sharedPreferences = getSharedPreferences(AppConstant.APP_SETTING, 0);
         initPager();
         mViewPager.setAdapter(mPagerAdapter);
     }
 
     private void initPager() {
-        if (AppConstant.APP_LOCK_PATTERN == settings.getInt(AppConstant.APP_LOCK_TYPE, -1)) {
+        if (AppConstant.APP_LOCK_PATTERN == sharedPreferences.getInt(AppConstant.APP_LOCK_TYPE, -1)) {
             PatternLock patternLock = new PatternLock();
+            Bundle bundle = new Bundle();
+            bundle.putString("packageName", getIntent().getStringExtra("packageName"));
+            patternLock.setArguments(bundle);
             mPagerAdapter.addFragment(patternLock, "Pattern");
-        } else if (AppConstant.APP_LOCK_PIN == settings.getInt(AppConstant.APP_LOCK_TYPE, -1)) {
+        } else if (AppConstant.APP_LOCK_PIN == sharedPreferences.getInt(AppConstant.APP_LOCK_TYPE, -1)) {
             KeyboardLock keyboardLock = new KeyboardLock();
+            Bundle bundle = new Bundle();
+            bundle.putString("packageName", getIntent().getStringExtra("packageName"));
+            keyboardLock.setArguments(bundle);
             mPagerAdapter.addFragment(keyboardLock, "Keyboard");
         }
     }

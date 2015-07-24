@@ -27,8 +27,7 @@
             android:name=".service.AppStartService"
             android:enabled="true"
             android:exported="false"
-            android:persistent="true"
-            android:process="com.avazu.applocker.service.AppStartService" />
+            android:persistent="true" />
 
         <receiver
             android:name=".service.StickyReceiver"
@@ -38,6 +37,8 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
 
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>

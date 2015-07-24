@@ -22,6 +22,8 @@ public abstract class AppConstant {
 
     public static final String APP_FIRST_OPEN = "app_first_open";
 
+    public static final String APP_UNLOCKED = "app_unlocked";
+
     public static int APP_START_REQUEST = 100;
     public static int APP_START_SUCCEED = 101;
     public static int APP_START_FAILED = 102;

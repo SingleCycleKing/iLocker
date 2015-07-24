@@ -34,7 +34,7 @@ public class SetPassword extends BaseNoActionBarActivity {
             patternPassword.confirm();
         } else {
             inputTip.setText(getResources().getString(R.string.confirm_pin));
-            SetPinPassword pinPassword= (SetPinPassword) mFragments.get(1);
+            SetPinPassword pinPassword = (SetPinPassword) mFragments.get(1);
             pinPassword.confirm();
         }
     }
@@ -69,8 +69,15 @@ public class SetPassword extends BaseNoActionBarActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mFragments = new ArrayList<>();
+
         initPager();
-        transaction(0, 0);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.set_content, mFragments.get(0));
+        transaction.commit();
+        mCurrentPage = 0;
+        inputTip.setText(getResources().getString(R.string.pin_tip));
+        modeTip.setText(getResources().getString(R.string.use_pattern_tip));
     }
 
     private void initPager() {

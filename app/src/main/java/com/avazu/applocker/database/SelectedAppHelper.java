@@ -51,6 +51,12 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void delete(String name) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(SelectedAppContract.SelectedApp.TABLE_NAME, SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE, new String[]{name});
+
+    }
+
     public void insert(AppModel mApplication) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
