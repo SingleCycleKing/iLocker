@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,6 +24,7 @@ import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
 import com.avazu.applocker.util.CharacterParser;
 import com.avazu.applocker.util.PhonemeComparator;
+import com.avazu.applocker.view.fragment.Dialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +41,7 @@ public class AppList extends BaseActivity {
     private PhonemeComparator mComparator;
     private SelectedAppHelper mAppHelper;
     private List<SectionedGridRecyclerViewAdapter.Section> mSections;
+    private Dialog dialog;
 
     @InjectView(R.id.app_list)
     RecyclerView mAppList;
@@ -84,6 +87,18 @@ public class AppList extends BaseActivity {
         mAppInfoList = BasicUtil.getAllApplication(this, mSelectedInfoList);
 
         initAppList();
+
+        dialog = new Dialog();
+        dialog.setOnDialogClickListener(new Dialog.OnDialogClickListener() {
+            @Override
+            public void onPositive() {
+                finish();
+            }
+
+            @Override
+            public void onNegative() {
+            }
+        });
     }
 
     private void initSetting() {
@@ -175,5 +190,13 @@ public class AppList extends BaseActivity {
     @Override
     public void finish() {
         super.finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && getSharedPreferences(AppConstant.APP_SETTING, 0).getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
+            dialog.show(getFragmentManager(), "Dialog");
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

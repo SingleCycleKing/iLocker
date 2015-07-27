@@ -25,6 +25,12 @@ public class SetPinPassword extends BaseFragment {
     private String inputPassword = "";
     private boolean confirmCompleted = false;
     private Handler handler;
+    private String string = "";
+    private OnTipChangedListener onTipChangedListener;
+
+    public void setOnTipChangedListener(OnTipChangedListener onTipChangedListener) {
+        this.onTipChangedListener = onTipChangedListener;
+    }
 
     @Override
     protected void init() {
@@ -43,15 +49,19 @@ public class SetPinPassword extends BaseFragment {
                 else if (!inputPassword.equals(BasicUtil.passwordToString(password))) {
                     mIndicator.isWrong(true);
                     handler.postDelayed(runnable, 2000);
+                    string = getResources().getString(R.string.sorry);
+                    onTipChangedListener.onTipChanged(string);
                 }
             }
         });
     }
 
     public void confirm() {
-        if (inputCompleted && !confirmCompleted)
+        if (inputCompleted && !confirmCompleted) {
             mIndicator.restore();
-        else if (inputCompleted && confirmCompleted) {
+            string = getResources().getString(R.string.confirm_pin);
+            onTipChangedListener.onTipChanged(string);
+        } else if (inputCompleted && confirmCompleted) {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).edit();
             editor.putString(AppConstant.APP_LOCK_PIN_PASSWORD, inputPassword);
             editor.putBoolean(AppConstant.APP_FIRST_OPEN, false);
@@ -59,6 +69,11 @@ public class SetPinPassword extends BaseFragment {
             editor.apply();
             getActivity().setResult(AppConstant.APP_START_SUCCEED);
             getActivity().finish();
+        } else {
+            string = getString(R.string.pin_less);
+            onTipChangedListener.onTipChanged(string);
+            mIndicator.isWrong(true);
+            handler.postDelayed(runnable, 2000);
         }
     }
 
@@ -75,4 +90,7 @@ public class SetPinPassword extends BaseFragment {
         }
     };
 
+    public interface OnTipChangedListener {
+        void onTipChanged(String tip);
+    }
 }

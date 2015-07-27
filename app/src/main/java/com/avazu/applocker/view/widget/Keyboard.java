@@ -69,6 +69,7 @@ public class Keyboard extends LinearLayout {
 
     private void init(Context context) {
         mKeyboard.setLayoutManager(new GridLayoutManager(context, 3));
+        mKeyboard.setVerticalScrollBarEnabled(false);
         mKeyboard.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new KeyboardAdapter(context);
         mKeyboard.setAdapter(mAdapter);

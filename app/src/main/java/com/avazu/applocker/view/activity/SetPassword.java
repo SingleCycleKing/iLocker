@@ -29,13 +29,13 @@ public class SetPassword extends BaseNoActionBarActivity {
     @OnClick(R.id.continue_set)
     void Continue() {
         if (0 == mCurrentPage) {
-            inputTip.setText(getResources().getString(R.string.confrrm_pattern));
             SetPatternPassword patternPassword = (SetPatternPassword) mFragments.get(0);
             patternPassword.confirm();
+
         } else {
-            inputTip.setText(getResources().getString(R.string.confirm_pin));
             SetPinPassword pinPassword = (SetPinPassword) mFragments.get(1);
             pinPassword.confirm();
+
         }
     }
 
@@ -82,7 +82,19 @@ public class SetPassword extends BaseNoActionBarActivity {
 
     private void initPager() {
         SetPatternPassword patternPassword = new SetPatternPassword();
+        patternPassword.setOnTipChangedListener(new SetPatternPassword.OnTipChangedListener() {
+            @Override
+            public void onTipChanged(String tip) {
+                inputTip.setText(tip);
+            }
+        });
         SetPinPassword pinPassword = new SetPinPassword();
+        pinPassword.setOnTipChangedListener(new SetPinPassword.OnTipChangedListener() {
+            @Override
+            public void onTipChanged(String tip) {
+                inputTip.setText(tip);
+            }
+        });
         mFragments.add(patternPassword);
         mFragments.add(pinPassword);
     }
@@ -121,4 +133,6 @@ public class SetPassword extends BaseNoActionBarActivity {
         transaction.replace(R.id.set_content, mFragments.get(position));
         transaction.commit();
     }
+
+
 }
