@@ -53,7 +53,6 @@ public class Setting extends BaseActivity {
                 switch (position) {
                     case 0:
                         startActivity(new Intent(Setting.this, SetPassword.class));
-                        overridePendingTransition(R.anim.in_from_end, R.anim.hold);
                         break;
                 }
             }
@@ -103,7 +102,6 @@ public class Setting extends BaseActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.hold, R.anim.out_to_end);
     }
 
     @Override

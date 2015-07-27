@@ -31,13 +31,16 @@ public class SetPassword extends BaseNoActionBarActivity {
         if (0 == mCurrentPage) {
             SetPatternPassword patternPassword = (SetPatternPassword) mFragments.get(0);
             patternPassword.confirm();
-
         } else {
             SetPinPassword pinPassword = (SetPinPassword) mFragments.get(1);
             pinPassword.confirm();
 
         }
     }
+
+    @InjectView(R.id.continue_set)
+    TextView textView;
+
 
     @InjectView(R.id.set_password_tip)
     TextView modeTip;
@@ -86,6 +89,9 @@ public class SetPassword extends BaseNoActionBarActivity {
             @Override
             public void onTipChanged(String tip) {
                 inputTip.setText(tip);
+                if (tip.equals(getResources().getString(R.string.confirm_pattern)))
+                    textView.setText(getResources().getString(R.string.confirm));
+
             }
         });
         SetPinPassword pinPassword = new SetPinPassword();
@@ -93,6 +99,8 @@ public class SetPassword extends BaseNoActionBarActivity {
             @Override
             public void onTipChanged(String tip) {
                 inputTip.setText(tip);
+                if (tip.equals(getResources().getString(R.string.confirm_pin)))
+                    textView.setText(getResources().getString(R.string.confirm));
             }
         });
         mFragments.add(patternPassword);
@@ -107,7 +115,6 @@ public class SetPassword extends BaseNoActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.hold, R.anim.out_to_end);
     }
 
     @Override

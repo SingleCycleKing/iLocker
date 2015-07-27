@@ -2,12 +2,11 @@ package com.avazu.applocker.view.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +22,7 @@ import com.avazu.applocker.service.AppStartService;
 import com.avazu.applocker.util.AppConstant;
 import com.avazu.applocker.util.BasicUtil;
 import com.avazu.applocker.util.CharacterParser;
+import com.avazu.applocker.util.DebugLog;
 import com.avazu.applocker.util.PhonemeComparator;
 import com.avazu.applocker.view.fragment.Dialog;
 
@@ -55,13 +55,11 @@ public class AppList extends BaseActivity {
     @OnClick(R.id.start)
     void start() {
         startActivityForResult(new Intent(this, SetPassword.class), AppConstant.APP_START_REQUEST);
-        overridePendingTransition(R.anim.in_from_end, R.anim.hold);
     }
 
     @OnClick(R.id.toolbar_setting)
     void set() {
         startActivity(new Intent(this, Setting.class));
-        overridePendingTransition(R.anim.in_from_end, R.anim.hold);
     }
 
     @Override
@@ -80,9 +78,9 @@ public class AppList extends BaseActivity {
 
         startService(new Intent(this, AppStartService.class));
 
+        mAppHelper = new SelectedAppHelper(this);
         initSetting();
 
-        mAppHelper = new SelectedAppHelper(this);
         mSelectedInfoList = mAppHelper.queryAll();
         mAppInfoList = BasicUtil.getAllApplication(this, mSelectedInfoList);
 
@@ -105,6 +103,27 @@ public class AppList extends BaseActivity {
         SharedPreferences mSettings = getSharedPreferences(AppConstant.APP_SETTING, 0);
         SharedPreferences.Editor editor = mSettings.edit();
         if (mSettings.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
+
+            String[] strings = getResources().getStringArray(R.array.packageName);
+
+            PackageManager manager = this.getPackageManager();
+            ArrayList<AppModel> mModels = new ArrayList<>();
+            List<ApplicationInfo> apps = manager.getInstalledApplications(PackageManager.GET_META_DATA);
+            for (ApplicationInfo mInfo : apps) {
+                for (String string : strings) {
+                    if (mInfo.packageName.equals(string)) {
+                        AppModel mModel = new AppModel();
+                        DebugLog.e(mInfo.packageName);
+                        mModel.setPackageName(mInfo.packageName);
+                        mModel.setLabel(mInfo.loadLabel(manager).toString());
+                        mModels.add(mModel);
+                    }
+                }
+            }
+            for (AppModel model : mModels) {
+                mAppHelper.insert(model);
+            }
+
             setting.setVisibility(View.GONE);
             editor.putInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE);
             editor.putBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, true);

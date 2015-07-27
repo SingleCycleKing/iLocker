@@ -86,7 +86,7 @@ public class BasicUtil {
     }
 
 
-    public static Drawable blur(Context context, Bitmap sentBitmap, int radius) {
+    public static Bitmap blur(Context context, Bitmap sentBitmap, int radius) {
         Bitmap bitmap = Bitmap.createScaledBitmap(sentBitmap, sentBitmap.getWidth() / 2, sentBitmap.getHeight() / 2, false);
         RenderScript renderScript = RenderScript.create(context);
         Allocation input = Allocation.createFromBitmap(renderScript, bitmap, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT);
@@ -96,9 +96,7 @@ public class BasicUtil {
         script.setInput(input);
         script.forEach(output);
         output.copyTo(bitmap);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(bitmap);
-        bitmapDrawable.setColorFilter(context.getResources().getColor(R.color.blur_black), PorterDuff.Mode.DST_ATOP);
-        return bitmapDrawable;
+        return bitmap;
     }
 
 

@@ -7,6 +7,5 @@ public class SelectedAppContract {
         public static final String TABLE_NAME = "selected_app";
         public static final String COLUMN_NAME_LABEL = "app_label";
         public static final String COLUMN_NAME_PACKAGE = "app_package";
-        public static final String COLUMN_NAME_SORT="app_sort";
     }
 }

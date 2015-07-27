@@ -35,13 +35,36 @@
     <string name="pin_tip">Draw your unlock passcode</string>
     <string name="pattern_tip">Draw your unlock pattern</string>
     <string name="confirm_pin">Confirm your unlock passcode</string>
-    <string name="confrrm_pattern">Confirm your unlock pattern</string>
+    <string name="confirm_pattern">Confirm your unlock pattern</string>
     <string name="pin_error">Your PIN didn\'t match, please try again</string>
     <string name="pattern_error">Your pattern didn\'t match, please try again</string>
     <string name="give_up_tip">Do you really give up on me?</string>
     <string name="pin_less">Connect at least 4 numbers. Try again</string>
     <string name="pattern_less">Connect at least 4 dots. Try again</string>
     <string name="sorry">Sorry, try again</string>
+
+    <string-array name="packageName">
+        <item>com.facebook.katana</item>
+        <item>com.skype.raider</item>
+        <item>com.twitter.android</item>
+        <item>com.instagram.android</item>
+        <item>jp.naver.line.android</item>
+        <item>com.facebook.orca</item>
+        <item>com.google.android.youtube</item>
+        <item>com.imo.android.imoim</item>
+        <item>com.ebay.mobile</item>
+        <item>com.yahoo.mobile.client.android.yahoo</item>
+        <item>com.imdb.mobile</item>
+        <item>com.viber.voip</item>
+        <item>com.whatsapp</item>
+        <item>com.android.chrome</item>
+        <item>com.infraware.office.link</item>
+        <item>com.spotify.music</item>
+        <item>com.commsource.beautyplus</item>
+        <item>media.music.musicplayer</item>
+        <item>com.google.android.apps.maps</item>
+        <item>com.viki.android</item>
+    </string-array>
 
 
 </resources>

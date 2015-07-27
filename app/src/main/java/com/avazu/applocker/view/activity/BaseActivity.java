@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.avazu.applocker.R;
+import com.avazu.applocker.util.AppBackground;
 import com.avazu.applocker.util.BasicUtil;
 
 import butterknife.ButterKnife;
@@ -23,8 +24,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawable(AppBackground.getInstance(this));
         setContentView(getLayoutID());
-        getWindow().setBackgroundDrawable(BasicUtil.blur(this, BasicUtil.getWallpaper(this), 1));
         ButterKnife.inject(this);
         mTitle.setText(getResources().getString(R.string.app_name));
         setSupportActionBar(mToolbar);

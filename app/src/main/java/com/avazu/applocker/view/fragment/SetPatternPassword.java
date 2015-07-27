@@ -78,7 +78,7 @@ public class SetPatternPassword extends BaseFragment {
     public void confirm() {
         if (inputCompleted && !confirmCompleted) {
             mPatternView.clearPattern();
-            string = getResources().getString(R.string.confrrm_pattern);
+            string = getResources().getString(R.string.confirm_pattern);
             onTipChangedListener.onTipChanged(string);
         } else if (inputCompleted && confirmCompleted) {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).edit();

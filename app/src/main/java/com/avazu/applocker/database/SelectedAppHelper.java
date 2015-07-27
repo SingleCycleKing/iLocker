@@ -22,7 +22,6 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + SelectedAppContract.SelectedApp.TABLE_NAME + " (" +
                     SelectedAppContract.SelectedApp._ID + " INTEGER PRIMARY KEY," +
                     SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE + TEXT_TYPE + COMMA_SEP +
-                    SelectedAppContract.SelectedApp.COLUMN_NAME_SORT + TEXT_TYPE + COMMA_SEP +
                     SelectedAppContract.SelectedApp.COLUMN_NAME_LABEL + TEXT_TYPE +
                     " )";
     private static final String SQL_DELETE_ENTRIES =
@@ -61,7 +60,6 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE, mApplication.getPackageName());
-        values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_SORT, mApplication.getSort());
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_LABEL, mApplication.getLabel());
         sqLiteDatabase.insert(SelectedAppContract.SelectedApp.TABLE_NAME, null, values);
     }
@@ -74,8 +72,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         for (int i = 0; i < cursor.getCount(); i++) {
             AppModel appModel = new AppModel();
             appModel.setPackageName(cursor.getString(1));
-            appModel.setSort(cursor.getString(2));
-            appModel.setLabel(cursor.getString(3));
+            appModel.setLabel(cursor.getString(2));
             appModels.add(appModel);
             if (!cursor.isLast()) cursor.moveToNext();
         }
@@ -89,8 +86,8 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         AppModel appModel = new AppModel();
         appModel.setPackageName(cursor.getString(1));
-        appModel.setSort(cursor.getString(2));
-        appModel.setLabel(cursor.getString(3));
+        appModel.setLabel(cursor.getString(2));
+        cursor.close();
         return appModel;
     }
 
