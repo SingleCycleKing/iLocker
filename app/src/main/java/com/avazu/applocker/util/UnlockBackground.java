@@ -15,6 +15,8 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.avazu.applocker.R;
+
 import java.io.ByteArrayOutputStream;
 
 public class UnlockBackground {
@@ -60,6 +62,7 @@ public class UnlockBackground {
         bitmap.eraseColor(Color.argb(255,mAverageColorInfo.getRed(),mAverageColorInfo.getGreen(),mAverageColorInfo.getBlue()));
         Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(getZoomIcon(), mSize.x / 2 - 400, mSize.y/2 - 250, null);
+        canvas.drawBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.transparent_background), 0, 0,null);
         canvas.save();
         return blur(bitmap, 10);
     }

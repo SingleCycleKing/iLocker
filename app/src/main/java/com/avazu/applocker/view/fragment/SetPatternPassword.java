@@ -58,7 +58,6 @@ public class SetPatternPassword extends BaseFragment {
                     string = getResources().getString(R.string.pattern_less);
                     onTipChangedListener.onTipChanged(string);
                 } else {
-                    DebugLog.e("input");
                     if (!inputCompleted) {
                         inputCompleted = true;
                         inputPassword = BasicUtil.pattern2String(cells);

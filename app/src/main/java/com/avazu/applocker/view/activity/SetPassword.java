@@ -51,14 +51,14 @@ public class SetPassword extends BaseNoActionBarActivity {
             case 0:
                 transaction(1, mCurrentPage);
                 mCurrentPage = 1;
-                inputTip.setText(getResources().getString(R.string.pattern_tip));
-                modeTip.setText(getResources().getString(R.string.use_pin_tip));
+                inputTip.setText(getResources().getString(R.string.pin_tip));
+                modeTip.setText(getResources().getString(R.string.use_pattern_tip));
                 break;
             case 1:
                 transaction(0, mCurrentPage);
                 mCurrentPage = 0;
-                inputTip.setText(getResources().getString(R.string.pin_tip));
-                modeTip.setText(getResources().getString(R.string.use_pattern_tip));
+                inputTip.setText(getResources().getString(R.string.pattern_tip));
+                modeTip.setText(getResources().getString(R.string.use_pin_tip));
                 break;
         }
     }
@@ -79,8 +79,8 @@ public class SetPassword extends BaseNoActionBarActivity {
         transaction.replace(R.id.set_content, mFragments.get(0));
         transaction.commit();
         mCurrentPage = 0;
-        inputTip.setText(getResources().getString(R.string.pin_tip));
-        modeTip.setText(getResources().getString(R.string.use_pattern_tip));
+        inputTip.setText(getResources().getString(R.string.pattern_tip));
+        modeTip.setText(getResources().getString(R.string.use_pin_tip));
     }
 
     private void initPager() {
