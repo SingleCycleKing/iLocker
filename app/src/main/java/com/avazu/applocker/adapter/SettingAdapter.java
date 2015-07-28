@@ -29,8 +29,10 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public SettingAdapter(Context mContext) {
         this.mContext = mContext;
-        titles = mContext.getResources().getStringArray(R.array.setting);
         settings = mContext.getSharedPreferences(AppConstant.APP_SETTING, 0);
+        if (AppConstant.APP_LOCK_PATTERN == settings.getInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PATTERN))
+            titles = mContext.getResources().getStringArray(R.array.setting);
+        else titles = mContext.getResources().getStringArray(R.array.setting_pin);
         checkButtons = new ArrayList<>();
     }
 

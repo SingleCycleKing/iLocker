@@ -13,6 +13,7 @@ import com.avazu.applocker.R;
 import com.avazu.applocker.adapter.SettingAdapter;
 import com.avazu.applocker.listener.OnRecyclerItemClickListener;
 import com.avazu.applocker.util.AppConstant;
+import com.avazu.applocker.util.WrappingLayoutManager;
 import com.avazu.applocker.view.widget.CheckButton;
 import com.avazu.applocker.view.widget.DividerItemDecoration;
 
@@ -41,24 +42,9 @@ public class Setting extends BaseActivity {
         if (null != getSupportActionBar())
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SettingAdapter mAdapter = new SettingAdapter(this);
-
-        mSettingList.setLayoutManager(new LinearLayoutManager(this));
-        mSettingList.setItemAnimator(new DefaultItemAnimator());
-        mSettingList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider), true, true));
-        mSettingList.setAdapter(mAdapter);
-        mSettingList.addOnItemTouchListener(new OnRecyclerItemClickListener(this, new OnRecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                switch (position) {
-                    case 0:
-                        startActivity(new Intent(Setting.this, SetPassword.class));
-                        break;
-                }
-            }
-        }));
-
         settings = getSharedPreferences(AppConstant.APP_SETTING, 0);
+
+        initList();
 
         if (settings.getInt(AppConstant.APP_LOCK_OPTION, 0) == AppConstant.APP_LOCK_ONCE)
             onceCheck.setIsChecked(true);
@@ -89,6 +75,25 @@ public class Setting extends BaseActivity {
 
     }
 
+    private void initList() {
+        SettingAdapter mAdapter = new SettingAdapter(this);
+
+        mSettingList.setLayoutManager(new WrappingLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mSettingList.setItemAnimator(new DefaultItemAnimator());
+        mSettingList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider), true, false));
+        mSettingList.setAdapter(mAdapter);
+        mSettingList.addOnItemTouchListener(new OnRecyclerItemClickListener(this, new OnRecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                switch (position) {
+                    case 0:
+                        startActivityForResult(new Intent(Setting.this, SetPassword.class), 300);
+                        break;
+                }
+            }
+        }));
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -107,5 +112,13 @@ public class Setting extends BaseActivity {
     @Override
     protected int getLayoutID() {
         return R.layout.activity_setting;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 300) {
+            initList();
+        }
     }
 }

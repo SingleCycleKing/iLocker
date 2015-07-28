@@ -19,11 +19,17 @@
     <string name="alert">Alert</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="retry">Retry</string>
 
     <string-array name="setting">
         <item>Change password</item>
         <item>Vibrate on touch</item>
         <item>Make pattern visible</item>
+    </string-array>
+
+    <string-array name="setting_pin">
+        <item>Change password</item>
+        <item>Vibrate on touch</item>
     </string-array>
 
     <string name="lock_once">Lock apps after the device is locked</string>

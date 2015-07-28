@@ -66,12 +66,16 @@ public class SetPatternPassword extends BaseFragment {
                     else if (!inputPassword.equals(BasicUtil.pattern2String(cells))) {
                         mPatternView.setWrongFlag(true);
                         handler.postDelayed(runnable, 1000);
-                        string=getResources().getString(R.string.sorry);
+                        string = getResources().getString(R.string.sorry);
                         onTipChangedListener.onTipChanged(string);
                     }
                 }
             }
         });
+    }
+
+    public void clear(){
+        mPatternView.clearPattern();
     }
 
     public void confirm() {
@@ -103,7 +107,7 @@ public class SetPatternPassword extends BaseFragment {
         }
     };
 
-    public interface OnTipChangedListener{
+    public interface OnTipChangedListener {
         void onTipChanged(String tip);
     }
 }

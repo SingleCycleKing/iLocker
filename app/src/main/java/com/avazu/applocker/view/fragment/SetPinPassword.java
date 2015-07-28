@@ -77,6 +77,10 @@ public class SetPinPassword extends BaseFragment {
         }
     }
 
+    public void clear(){
+        mIndicator.restore();
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_set_pin_password;

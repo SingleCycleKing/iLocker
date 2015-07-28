@@ -3,6 +3,7 @@ package com.avazu.applocker.view.activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.avazu.applocker.R;
@@ -20,11 +21,8 @@ public class SetPassword extends BaseNoActionBarActivity {
     private ArrayList<Fragment> mFragments;
     private int mCurrentPage = 0;
 
-    @OnClick(R.id.cancel_set)
-    void Cancel() {
-        setResult(AppConstant.APP_START_FAILED);
-        finish();
-    }
+    @InjectView(R.id.cancel_set)
+    TextView cancel;
 
     @OnClick(R.id.continue_set)
     void Continue() {
@@ -81,26 +79,71 @@ public class SetPassword extends BaseNoActionBarActivity {
         mCurrentPage = 0;
         inputTip.setText(getResources().getString(R.string.pattern_tip));
         modeTip.setText(getResources().getString(R.string.use_pin_tip));
+
+
     }
 
     private void initPager() {
-        SetPatternPassword patternPassword = new SetPatternPassword();
+        final SetPatternPassword patternPassword = new SetPatternPassword();
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(AppConstant.APP_START_FAILED);
+                finish();
+            }
+        });
+
         patternPassword.setOnTipChangedListener(new SetPatternPassword.OnTipChangedListener() {
             @Override
             public void onTipChanged(String tip) {
                 inputTip.setText(tip);
-                if (tip.equals(getResources().getString(R.string.confirm_pattern)))
+                if (tip.equals(getResources().getString(R.string.confirm_pattern))) {
                     textView.setText(getResources().getString(R.string.confirm));
+                    cancel.setText(getResources().getString(R.string.retry));
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            patternPassword.clear();
+                            inputTip.setText(getResources().getString(R.string.pattern_tip));
+                            modeTip.setText(getResources().getString(R.string.use_pin_tip));
+                            cancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    setResult(AppConstant.APP_START_FAILED);
+                                    finish();
+                                }
+                            });
+                        }
+                    });
+                }
 
             }
         });
-        SetPinPassword pinPassword = new SetPinPassword();
+        final SetPinPassword pinPassword = new SetPinPassword();
         pinPassword.setOnTipChangedListener(new SetPinPassword.OnTipChangedListener() {
             @Override
             public void onTipChanged(String tip) {
                 inputTip.setText(tip);
-                if (tip.equals(getResources().getString(R.string.confirm_pin)))
+                if (tip.equals(getResources().getString(R.string.confirm_pin))) {
                     textView.setText(getResources().getString(R.string.confirm));
+                    cancel.setText(getResources().getString(R.string.retry));
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pinPassword.clear();
+                            inputTip.setText(getResources().getString(R.string.pin_tip));
+                            modeTip.setText(getResources().getString(R.string.use_pattern_tip));
+                            cancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    setResult(AppConstant.APP_START_FAILED);
+                                    finish();
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
         mFragments.add(patternPassword);
