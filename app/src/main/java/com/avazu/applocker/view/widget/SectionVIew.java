@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class SectionView extends LinearLayout {
-
     @InjectView(R.id.section_title)
     TextView mTitle;
 

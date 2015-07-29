@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Indicator extends View {
 
-
     private Paint circlePaint;
 
     private Paint stuffPaint;
