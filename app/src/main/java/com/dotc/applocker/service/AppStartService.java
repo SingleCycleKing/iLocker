@@ -53,7 +53,7 @@ public class AppStartService extends Service {
         List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
         if (runningApps != null) {
             for (ActivityManager.RunningAppProcessInfo runningApp : runningApps) {
-                if (runningApp.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                if (runningApp.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && !runningApp.processName.equals("com.dotc.applocker")) {
                     getData(runningApp);
                     break;
                 }
@@ -62,9 +62,16 @@ public class AppStartService extends Service {
     }
 
     private void getData(ActivityManager.RunningAppProcessInfo runningApp) {
-
+        for (String name : unlockedSet) {
+            if (!name.equals(runningApp.processName) && AppConstant.APP_LOCK_EVERY_TIME == sharedPreferences.getInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE)) {
+                unlockedSet.clear();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
+                editor.apply();
+                break;
+            }
+        }
         ArrayList<AppModel> mModels = mAppHelper.queryAll();
-
         for (int i = 0; i < mModels.size(); i++) {
             if (mModels.get(i).getPackageName().equals(runningApp.processName)) {
                 init(runningApp);
@@ -81,14 +88,8 @@ public class AppStartService extends Service {
                 break;
             }
         }
-
         if (!unlocked) {
-            if (AppConstant.APP_LOCK_EVERY_TIME == sharedPreferences.getInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE)) {
-                unlockedSet.clear();
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
-                editor.apply();
-            }
+
             Intent newIntent = new Intent();
             newIntent.setClass(AppStartService.this, Lock.class);
             newIntent.putExtra("packageName", runningApp.processName);

@@ -55,6 +55,7 @@ public class KeyboardLock extends BaseFragment {
         mKeyboard.setVibratorEnable(sharedPreferences.getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
 
         mIndicator.setKeyboard(mKeyboard);
+        mIndicator.setInteractEnable(true);
         mIndicator.setOnPasswordInputCompleted(new Indicator.OnPasswordInputCompleted() {
             @Override
             public void onPasswordInputCompleted(List<Integer> password) {
@@ -67,8 +68,8 @@ public class KeyboardLock extends BaseFragment {
                         editor.apply();
 
                         unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
-                        for (String s:unlockedSet){
-                            DebugLog.e(s+"fuck");
+                        for (String s : unlockedSet) {
+                            DebugLog.e(s + "fuck");
                         }
 
                         getActivity().finish();

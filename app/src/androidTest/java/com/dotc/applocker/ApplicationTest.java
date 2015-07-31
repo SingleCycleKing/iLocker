@@ -1,4 +1,4 @@
-package com.avazu.applocker;
+package com.dotc.applocker;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

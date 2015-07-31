@@ -157,7 +157,6 @@ public class LockButton extends RelativeLayout {
         }
     }
 
-
     public void setRippleSize(int rippleSize) {
         this.rippleSize = rippleSize;
     }
@@ -165,7 +164,6 @@ public class LockButton extends RelativeLayout {
     public void setRippleSpeed(float rippleSpeed) {
         this.rippleSpeed = rippleSpeed;
     }
-
 
     public void setRippleColor(int rippleColor) {
         this.rippleColor = rippleColor;

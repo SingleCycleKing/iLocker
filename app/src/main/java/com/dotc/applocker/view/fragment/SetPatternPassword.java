@@ -78,9 +78,9 @@ public class SetPatternPassword extends BaseFragment {
 
     private void savePassword() {
         SharedPreferences.Editor editor = getActivity().getSharedPreferences(AppConstant.APP_SETTING, 0).edit();
-        editor.putString(AppConstant.APP_LOCK_PIN_PASSWORD, inputPassword);
+        editor.putString(AppConstant.APP_LOCK_PATTERN_PASSWORD, inputPassword);
         editor.putBoolean(AppConstant.APP_FIRST_OPEN, false);
-        editor.putInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PIN);
+        editor.putInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PATTERN);
         editor.apply();
         getActivity().setResult(AppConstant.APP_START_SUCCEED);
         getActivity().finish();

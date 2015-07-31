@@ -47,13 +47,21 @@ public class SetPassword extends BaseNoActionBarActivity implements View.OnClick
 
         initPager();
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.set_content, mFragments.get(0));
-        transaction.commit();
-        mCurrentPage = 0;
-        inputTip.setText(getResources().getString(R.string.pattern_tip));
-        modeTip.setText(getResources().getString(R.string.use_pin_tip));
 
+        if (AppConstant.APP_LOCK_PATTERN == getSharedPreferences(AppConstant.APP_SETTING, 0).getInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PATTERN))
+            mCurrentPage = 0;
+        else mCurrentPage = 1;
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.set_content, mFragments.get(mCurrentPage));
+        transaction.commit();
+        if (0 == mCurrentPage) {
+            inputTip.setText(getResources().getString(R.string.pattern_tip));
+            modeTip.setText(getResources().getString(R.string.use_pin_tip));
+        } else {
+            inputTip.setText(getResources().getString(R.string.pin_tip));
+            modeTip.setText(getResources().getString(R.string.use_pattern_tip));
+        }
         cancel.setOnClickListener(this);
         modeTip.setOnClickListener(this);
     }

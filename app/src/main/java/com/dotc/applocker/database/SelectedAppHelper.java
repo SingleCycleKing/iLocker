@@ -78,7 +78,6 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
             if (!cursor.isLast()) cursor.moveToNext();
         }
         cursor.close();
-        sqLiteDatabase.close();
         return appModels;
     }
 
@@ -90,7 +89,6 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         appModel.setPackageName(cursor.getString(1));
         appModel.setLabel(cursor.getString(2));
         cursor.close();
-        sqLiteDatabase.close();
         return appModel;
     }
 

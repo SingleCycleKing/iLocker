@@ -24,7 +24,6 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context mContext;
     private String[] titles;
     private SharedPreferences settings;
-    private ArrayList<CheckButton> checkButtons;
 
 
     public SettingAdapter(Context mContext) {
@@ -33,7 +32,6 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (AppConstant.APP_LOCK_PATTERN == settings.getInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PATTERN))
             titles = mContext.getResources().getStringArray(R.array.setting);
         else titles = mContext.getResources().getStringArray(R.array.setting_pin);
-        checkButtons = new ArrayList<>();
     }
 
     @Override
@@ -76,10 +74,6 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 });
                 break;
         }
-    }
-
-    public CheckButton getCheckBox(int position) {
-        return checkButtons.get(position);
     }
 
     @Override
