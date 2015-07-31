@@ -47,12 +47,13 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         for (AppModel mModel : mData) {
             insert(mModel);
         }
+        sqLiteDatabase.close();
     }
 
     public void delete(String name) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.delete(SelectedAppContract.SelectedApp.TABLE_NAME, SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE+"=?", new String[]{name});
-
+        sqLiteDatabase.delete(SelectedAppContract.SelectedApp.TABLE_NAME, SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE + "=?", new String[]{name});
+        sqLiteDatabase.close();
     }
 
     public void insert(AppModel mApplication) {
@@ -61,6 +62,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_PACKAGE, mApplication.getPackageName());
         values.put(SelectedAppContract.SelectedApp.COLUMN_NAME_LABEL, mApplication.getLabel());
         sqLiteDatabase.insert(SelectedAppContract.SelectedApp.TABLE_NAME, null, values);
+        sqLiteDatabase.close();
     }
 
     public ArrayList<AppModel> queryAll() {
@@ -76,6 +78,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
             if (!cursor.isLast()) cursor.moveToNext();
         }
         cursor.close();
+        sqLiteDatabase.close();
         return appModels;
     }
 
@@ -87,6 +90,7 @@ public class SelectedAppHelper extends SQLiteOpenHelper {
         appModel.setPackageName(cursor.getString(1));
         appModel.setLabel(cursor.getString(2));
         cursor.close();
+        sqLiteDatabase.close();
         return appModel;
     }
 
