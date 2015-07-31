@@ -31,7 +31,6 @@ public class LockButton extends RelativeLayout {
     private TextView textView;
     private String text;
     private float x = -1, y = -1, radius = -1;
-    private boolean mInteractEnable = false;
 
 
     public LockButton(Context context, AttributeSet attrs) {
@@ -70,10 +69,6 @@ public class LockButton extends RelativeLayout {
     public void setTextColor(int color) {
         textView.setTextColor(color);
         invalidate();
-    }
-
-    public void setInteractEnable(boolean mInteractEnable) {
-        this.mInteractEnable = mInteractEnable;
     }
 
     public void setText(String text) {
@@ -138,7 +133,7 @@ public class LockButton extends RelativeLayout {
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             x = -1;
             y = -1;
-        } else if (event.getAction() == MotionEvent.ACTION_UP && mInteractEnable) {
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
             radius = getHeight() / rippleSize;
             x = getPivotX();
             y = getPivotY();
