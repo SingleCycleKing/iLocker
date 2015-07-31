@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Toast;
+
+import com.avazu.applocker.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ public class Indicator extends View {
     private OnPasswordInputCompleted onPasswordInputCompleted;
 
     private int count = 0;
+
+    private boolean mInteractEnable = false;
 
     public Indicator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,6 +65,11 @@ public class Indicator extends View {
 
     }
 
+    public void setInteractEnable(boolean isEnable) {
+        this.mInteractEnable = isEnable;
+        mKeyboard.setInteractEnable(isEnable);
+    }
+
     private void drawCircle(Canvas canvas, Paint paint, int j) {
         for (int i = 0; i < j; i++) {
             float centerX = i * childWidth + childWidth / 2;
@@ -77,9 +87,11 @@ public class Indicator extends View {
         mKeyboard.setOnPasswordInput(new Keyboard.OnPasswordInput() {
             @Override
             public void onPasswordInput(int password) {
-                count++;
-                mPassword.add(password);
-                if (4 == count) {
+                if (mInteractEnable && count < 4) {
+                    count++;
+                    mPassword.add(password);
+                }
+                if (mInteractEnable && 4 == count) {
                     onPasswordInputCompleted.onPasswordInputCompleted(mPassword);
                 }
                 invalidate();
@@ -88,7 +100,7 @@ public class Indicator extends View {
         mKeyboard.setOnPasswordDelete(new Keyboard.OnPasswordDelete() {
             @Override
             public void onPasswordDelete() {
-                if (count > 0) {
+                if (mInteractEnable && count > 0) {
                     count--;
                     mPassword.remove(mPassword.size() - 1);
                     invalidate();

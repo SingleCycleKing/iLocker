@@ -14,52 +14,26 @@ import com.dotc.applocker.view.fragment.SetPinPassword;
 import java.util.ArrayList;
 
 import butterknife.InjectView;
-import butterknife.OnClick;
 
-public class SetPassword extends BaseNoActionBarActivity {
+public class SetPassword extends BaseNoActionBarActivity implements View.OnClickListener {
 
     private ArrayList<Fragment> mFragments;
     private int mCurrentPage = 0;
 
+    private enum PASSWORD_STATUS {
+        INPUT, CONFIRM
+    }
+
+    private PASSWORD_STATUS mStatus = PASSWORD_STATUS.INPUT;
+
     @InjectView(R.id.cancel_set)
     TextView cancel;
 
-    @OnClick(R.id.continue_set)
-    void Continue() {
-        if (0 == mCurrentPage) {
-            SetPatternPassword patternPassword = (SetPatternPassword) mFragments.get(0);
-            patternPassword.confirm();
-        } else {
-            SetPinPassword pinPassword = (SetPinPassword) mFragments.get(1);
-            pinPassword.confirm();
-
-        }
-    }
-
     @InjectView(R.id.continue_set)
-    TextView textView;
-
+    TextView confirm;
 
     @InjectView(R.id.set_password_tip)
     TextView modeTip;
-
-    @OnClick(R.id.set_password_tip)
-    void switchMode() {
-        switch (mCurrentPage) {
-            case 0:
-                transaction(1, mCurrentPage);
-                mCurrentPage = 1;
-                inputTip.setText(getResources().getString(R.string.pin_tip));
-                modeTip.setText(getResources().getString(R.string.use_pattern_tip));
-                break;
-            case 1:
-                transaction(0, mCurrentPage);
-                mCurrentPage = 0;
-                inputTip.setText(getResources().getString(R.string.pattern_tip));
-                modeTip.setText(getResources().getString(R.string.use_pin_tip));
-                break;
-        }
-    }
 
     @InjectView(R.id.password_tip)
     TextView inputTip;
@@ -80,7 +54,8 @@ public class SetPassword extends BaseNoActionBarActivity {
         inputTip.setText(getResources().getString(R.string.pattern_tip));
         modeTip.setText(getResources().getString(R.string.use_pin_tip));
 
-
+        cancel.setOnClickListener(this);
+        modeTip.setOnClickListener(this);
     }
 
     private void initPager() {
@@ -94,58 +69,71 @@ public class SetPassword extends BaseNoActionBarActivity {
             }
         });
 
-        patternPassword.setOnTipChangedListener(new SetPatternPassword.OnTipChangedListener() {
+        patternPassword.setOnStatusChangedListener(new SetPatternPassword.OnStatusChangedListener() {
             @Override
-            public void onTipChanged(String tip) {
-                inputTip.setText(tip);
-                if (tip.equals(getResources().getString(R.string.confirm_pattern))) {
-                    textView.setText(getResources().getString(R.string.confirm));
-                    cancel.setText(getResources().getString(R.string.retry));
-                    cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            patternPassword.clear();
-                            inputTip.setText(getResources().getString(R.string.pattern_tip));
-                            modeTip.setText(getResources().getString(R.string.use_pin_tip));
-                            cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    setResult(AppConstant.APP_START_FAILED);
-                                    finish();
-                                }
-                            });
-                        }
-                    });
-                }
+            public void onStatusChanged(SetPatternPassword.STATUS status) {
+                switch (status) {
+                    case NORMAL:
+                        inputTip.setText(getResources().getString(R.string.pattern_tip));
+                        mStatus = PASSWORD_STATUS.INPUT;
+                        confirm.setBackgroundResource(R.drawable.background_disable);
+                        confirm.setOnClickListener(null);
+                        confirm.setText(getResources().getString(R.string.go_on));
+                        cancel.setText(getResources().getString(R.string.cancel));
+                        break;
+                    case INPUT_LESS:
+                        inputTip.setText(getResources().getString(R.string.pattern_less));
+                        mStatus = PASSWORD_STATUS.INPUT;
+                        break;
+                    case INPUT_COMPLETE:
+                        confirm.setBackgroundResource(R.drawable.background_enable);
+                        confirm.setOnClickListener(SetPassword.this);
+                        cancel.setText(R.string.retry);
+                        break;
+                    case CONFIRM:
+                        inputTip.setText(getResources().getString(R.string.confirm_pattern));
+                        mStatus = PASSWORD_STATUS.CONFIRM;
+                        break;
+                    case CONFIRM_FAILED:
+                        inputTip.setText(getResources().getString(R.string.pattern_error));
+                        mStatus = PASSWORD_STATUS.CONFIRM;
+                        break;
 
-            }
-        });
-        final SetPinPassword pinPassword = new SetPinPassword();
-        pinPassword.setOnTipChangedListener(new SetPinPassword.OnTipChangedListener() {
-            @Override
-            public void onTipChanged(String tip) {
-                inputTip.setText(tip);
-                if (tip.equals(getResources().getString(R.string.confirm_pin))) {
-                    textView.setText(getResources().getString(R.string.confirm));
-                    cancel.setText(getResources().getString(R.string.retry));
-                    cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            pinPassword.clear();
-                            inputTip.setText(getResources().getString(R.string.pin_tip));
-                            modeTip.setText(getResources().getString(R.string.use_pattern_tip));
-                            cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    setResult(AppConstant.APP_START_FAILED);
-                                    finish();
-                                }
-                            });
-                        }
-                    });
                 }
             }
         });
+
+        final SetPinPassword pinPassword = new SetPinPassword();
+        pinPassword.setOnStatusChangedListener(new SetPinPassword.OnStatusChangedListener() {
+            @Override
+            public void onStatusChanged(SetPinPassword.STATUS status) {
+                switch (status) {
+                    case NORMAL:
+                        inputTip.setText(getResources().getString(R.string.pin_tip));
+                        mStatus = PASSWORD_STATUS.INPUT;
+                        confirm.setBackgroundResource(R.drawable.background_disable);
+                        confirm.setOnClickListener(null);
+                        confirm.setText(getResources().getString(R.string.go_on));
+                        cancel.setText(getResources().getString(R.string.cancel));
+                        break;
+                    case INPUT_COMPLETE:
+                        confirm.setBackgroundResource(R.drawable.background_enable);
+                        confirm.setOnClickListener(SetPassword.this);
+                        cancel.setText(R.string.retry);
+                        break;
+                    case CONFIRM:
+                        inputTip.setText(getResources().getString(R.string.confirm_pin));
+                        mStatus = PASSWORD_STATUS.CONFIRM;
+                        break;
+                    case CONFIRM_FAILED:
+                        inputTip.setText(getResources().getString(R.string.pin_error));
+                        mStatus = PASSWORD_STATUS.CONFIRM;
+                        break;
+
+                }
+            }
+        });
+
         mFragments.add(patternPassword);
         mFragments.add(pinPassword);
     }
@@ -185,4 +173,66 @@ public class SetPassword extends BaseNoActionBarActivity {
     }
 
 
+    private void switchMode() {
+        switch (mCurrentPage) {
+            case 0:
+                transaction(1, mCurrentPage);
+                mCurrentPage = 1;
+                inputTip.setText(getResources().getString(R.string.pin_tip));
+                modeTip.setText(getResources().getString(R.string.use_pattern_tip));
+                break;
+            case 1:
+                transaction(0, mCurrentPage);
+                mCurrentPage = 0;
+                inputTip.setText(getResources().getString(R.string.pattern_tip));
+                modeTip.setText(getResources().getString(R.string.use_pin_tip));
+                break;
+        }
+    }
+
+    private void restore() {
+        if (0 == mCurrentPage) {
+            SetPatternPassword patternPassword = (SetPatternPassword) mFragments.get(0);
+            patternPassword.clear();
+        } else {
+            SetPinPassword pinPassword = (SetPinPassword) mFragments.get(1);
+            pinPassword.clear();
+        }
+    }
+
+    private void confirm() {
+        if (0 == mCurrentPage) {
+            SetPatternPassword patternPassword = (SetPatternPassword) mFragments.get(0);
+            patternPassword.confirm();
+        } else {
+            SetPinPassword pinPassword = (SetPinPassword) mFragments.get(1);
+            pinPassword.confirm();
+        }
+        confirm.setText(getString(R.string.confirm));
+        cancel.setText(getResources().getString(R.string.cancel));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.cancel_set:
+                switch (mStatus) {
+                    case INPUT:
+                        if (cancel.getText().equals(getResources().getString(R.string.cancel)))
+                            finish();
+                        else restore();
+                        break;
+                    case CONFIRM:
+                        restore();
+                        break;
+                }
+                break;
+            case R.id.continue_set:
+                confirm();
+                break;
+            case R.id.set_password_tip:
+                switchMode();
+                break;
+        }
+    }
 }

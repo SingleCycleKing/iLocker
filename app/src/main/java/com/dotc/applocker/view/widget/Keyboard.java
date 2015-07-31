@@ -27,7 +27,8 @@ public class Keyboard extends LinearLayout {
     private Animation animation;
     private boolean hasVibrator = false;
     private Vibrator vibrator;
-
+    private boolean mInteractEnable = false;
+    private Context mContext;
     @InjectView(R.id.keyboard_list)
     RecyclerView mKeyboard;
 
@@ -43,8 +44,13 @@ public class Keyboard extends LinearLayout {
 
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-        init(context);
+        mContext = context;
+        init();
 
+    }
+
+    public void setInteractEnable(boolean mInteractEnable) {
+        this.mInteractEnable = mInteractEnable;
     }
 
     public void setVibratorEnable(boolean hasVibrator) {
@@ -68,16 +74,16 @@ public class Keyboard extends LinearLayout {
         this.onPasswordDelete = onPasswordDelete;
     }
 
-    private void init(Context context) {
-        mKeyboard.setLayoutManager(new GridLayoutManager(context, 3));
+    private void init() {
+        mKeyboard.setLayoutManager(new GridLayoutManager(mContext, 3));
         mKeyboard.setVerticalScrollBarEnabled(false);
         mKeyboard.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new KeyboardAdapter(context);
+        mAdapter = new KeyboardAdapter(mContext);
         mKeyboard.setAdapter(mAdapter);
-        mKeyboard.addOnItemTouchListener(new OnRecyclerItemClickListener(context, new OnRecyclerItemClickListener.OnItemClickListener() {
+        mKeyboard.addOnItemTouchListener(new OnRecyclerItemClickListener(mContext, new OnRecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (10 != position) {
+                if (9 != position && mInteractEnable) {
                     if (11 != position)
                         onPasswordInput.onPasswordInput(mAdapter.getText(position));
                     else onPasswordDelete.onPasswordDelete();

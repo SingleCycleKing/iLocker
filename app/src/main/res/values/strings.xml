@@ -45,7 +45,7 @@
     <string name="pin_error">Your PIN didn\'t match, please try again</string>
     <string name="pattern_error">Your pattern didn\'t match, please try again</string>
     <string name="give_up_tip">Do you really give up on me?</string>
-    <string name="pin_less">Connect at least 4 numbers. Try again</string>
+    <string name="pin_more">Cannot more than 4 numbers.</string>
     <string name="pattern_less">Connect at least 4 dots. Try again</string>
     <string name="sorry">Sorry, try again</string>
 

@@ -17,7 +17,7 @@ import butterknife.InjectView;
 public class KeyboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private Integer[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0};
+    private Integer[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, -1, 0};
 
     public KeyboardAdapter(Context mContext) {
         this.mContext = mContext;
@@ -40,8 +40,10 @@ public class KeyboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case 0:
                 ViewHolder viewHolder = (ViewHolder) holder;
                 viewHolder.lockButton.setText(numbers[position].toString());
-                if (9 == position) viewHolder.lockButton.setVisibility(View.GONE);
+                if (numbers[position] == -1) viewHolder.lockButton.setVisibility(View.GONE);
                 break;
+            case 1:
+                Delete delete = (Delete) holder;
         }
 
     }

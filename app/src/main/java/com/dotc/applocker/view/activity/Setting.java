@@ -79,7 +79,6 @@ public class Setting extends BaseActivity {
         SettingAdapter mAdapter = new SettingAdapter(this);
 
         mSettingList.setLayoutManager(new WrappingLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mSettingList.setItemAnimator(new DefaultItemAnimator());
         mSettingList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider), true, false));
         mSettingList.setAdapter(mAdapter);
         mSettingList.addOnItemTouchListener(new OnRecyclerItemClickListener(this, new OnRecyclerItemClickListener.OnItemClickListener() {

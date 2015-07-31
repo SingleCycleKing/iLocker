@@ -29,7 +29,7 @@ public class DeleteButton extends RelativeLayout {
     private int rippleColor;
     private Paint paint;
     private float x = -1, y = -1, radius = -1;
-
+    private boolean mInteractEnable = false;
 
     public DeleteButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,6 +61,9 @@ public class DeleteButton extends RelativeLayout {
         setBackgroundResource(R.drawable.circle);
     }
 
+    public void setInteractEnable(boolean mInteractEnable) {
+        this.mInteractEnable = mInteractEnable;
+    }
 
     @SuppressLint("DrawAllocation")
     @Override
@@ -117,7 +120,7 @@ public class DeleteButton extends RelativeLayout {
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             x = -1;
             y = -1;
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+        } else if (event.getAction() == MotionEvent.ACTION_UP && mInteractEnable) {
             radius = getHeight() / rippleSize;
             x = getPivotX();
             y = getPivotY();

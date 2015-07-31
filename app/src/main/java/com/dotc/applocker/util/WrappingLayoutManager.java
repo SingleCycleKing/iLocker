@@ -49,7 +49,7 @@ public class WrappingLayoutManager extends android.support.v7.widget.LinearLayou
 
     public void setOverScrollMode(int overScrollMode) {
         if (overScrollMode < ViewCompat.OVER_SCROLL_ALWAYS || overScrollMode > ViewCompat.OVER_SCROLL_NEVER)
-            throw new IllegalArgumentException("Unknown overscroll mode: " + overScrollMode);
+            throw new IllegalArgumentException("Unknown over scroll mode: " + overScrollMode);
         if (this.view == null) throw new IllegalStateException("view == null");
         this.overScrollMode = overScrollMode;
         ViewCompat.setOverScrollMode(view, overScrollMode);
