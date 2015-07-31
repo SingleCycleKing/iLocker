@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.avazu.applocker.view.activity.Setting">
+    tools:context="com.dotc.applocker.view.activity.Setting">
 
     <include layout="@layout/toolbar" />
 
@@ -28,7 +28,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/default_padding">
 
-        <com.avazu.applocker.view.widget.CheckButton
+        <com.dotc.applocker.view.widget.CheckButton
             android:id="@+id/item_once_check_box"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -59,7 +59,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/default_padding">
 
-        <com.avazu.applocker.view.widget.CheckButton
+        <com.dotc.applocker.view.widget.CheckButton
             android:id="@+id/item_every_check_box"
             android:layout_width="20dp"
             android:layout_height="20dp"

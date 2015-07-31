@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <com.avazu.applocker.view.widget.DeleteButton
+    <com.dotc.applocker.view.widget.DeleteButton
         android:id="@+id/delete"
         android:layout_width="50dp"
         android:layout_height="50dp" />
