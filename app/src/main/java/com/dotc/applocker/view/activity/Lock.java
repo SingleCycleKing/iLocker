@@ -1,9 +1,11 @@
 package com.dotc.applocker.view.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.avazu.applocker.R;
@@ -66,4 +68,27 @@ public class Lock extends BaseActivity {
         return R.layout.activity_lock;
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.addCategory(Intent.CATEGORY_HOME);
+                home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(home);
+                return true;
+            case KeyEvent.KEYCODE_HOME:
+                finish();
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (!hasFocus) {
+            finish();
+        }
+        super.onWindowFocusChanged(hasFocus);
+    }
 }
