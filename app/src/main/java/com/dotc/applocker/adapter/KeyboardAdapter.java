@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.avazu.applocker.R;
-import com.dotc.applocker.view.widget.DeleteButton;
 import com.dotc.applocker.view.widget.LockButton;
 
 import butterknife.ButterKnife;
@@ -42,8 +41,6 @@ public class KeyboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 viewHolder.lockButton.setText(numbers[position].toString());
                 if (numbers[position] == -1) viewHolder.lockButton.setVisibility(View.GONE);
                 break;
-            case 1:
-                Delete delete = (Delete) holder;
         }
 
     }
@@ -65,8 +62,6 @@ public class KeyboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class Delete extends RecyclerView.ViewHolder {
-        @InjectView(R.id.delete)
-        DeleteButton delete;
 
         public Delete(View itemView) {
             super(itemView);

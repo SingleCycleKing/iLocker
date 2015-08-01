@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.renderscript.Allocation;
@@ -48,16 +47,6 @@ public class BasicUtil {
         return mModels;
     }
 
-    public static int makePressColor(int color) {
-        int r = (color >> 16) & 0xFF;
-        int g = (color >> 8) & 0xFF;
-        int b = (color) & 0xFF;
-        r = (r - 30 < 0) ? 0 : r - 30;
-        g = (g - 30 < 0) ? 0 : g - 30;
-        b = (b - 30 < 0) ? 0 : b - 30;
-        return Color.rgb(r, g, b);
-    }
-
     public static boolean isChinese(char c) {
         Character.UnicodeBlock mBook = Character.UnicodeBlock.of(c);
         return mBook == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
@@ -66,11 +55,6 @@ public class BasicUtil {
                 || mBook == Character.UnicodeBlock.GENERAL_PUNCTUATION
                 || mBook == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                 || mBook == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
-    }
-
-    public static int spToPx(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
     }
 
     public static int dpToPx(float dp, Resources resources) {

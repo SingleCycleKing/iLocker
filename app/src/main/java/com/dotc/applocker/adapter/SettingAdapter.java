@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.dotc.applocker.util.AppConstant;
-import com.dotc.applocker.view.widget.CheckButton;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

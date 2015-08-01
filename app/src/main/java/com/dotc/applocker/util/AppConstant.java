@@ -1,7 +1,7 @@
 package com.dotc.applocker.util;
 
 public abstract class AppConstant {
-    public static final String APP_KEY = "Avazu";
+    public static final String APP_KEY = "DOTC";
 
     public static final String APP_SETTING = "app_Setting";
 

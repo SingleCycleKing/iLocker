@@ -6,7 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.dotc.applocker"
-        minSdkVersion 17
+        minSdkVersion 17123
+
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
