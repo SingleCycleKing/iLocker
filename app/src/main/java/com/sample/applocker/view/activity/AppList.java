@@ -73,6 +73,9 @@ public class AppList extends BaseActivity {
 
     @Override
     protected void init() {
+        if (null != getSupportActionBar())
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setting.setVisibility(View.VISIBLE);
 
         startService(new Intent(this, AppStartService.class));

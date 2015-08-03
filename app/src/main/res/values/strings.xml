@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">App Locker</string>
+    <string name="setting_title">App Lock Setting</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -21,17 +22,15 @@
     <string name="yes">Yes</string>
     <string name="retry">Retry</string>
 
-    <string-array name="setting">
-        <item>Change password</item>
-        <item>Vibrate on touch</item>
-        <item>Make pattern visible</item>
-    </string-array>
 
     <string-array name="setting_pin">
         <item>Change password</item>
         <item>Vibrate on touch</item>
     </string-array>
 
+    <string name="change_password">Change password</string>
+    <string name="vibrate_option">Vibrate on touch</string>
+    <string name="visible_option">Make pattern visible</string>
     <string name="lock_once">Lock apps after the device is locked</string>
     <string name="lock_every_time">Lock every time you launch an app</string>
     <string name="set_password_tip">Input your unlock password</string>
@@ -48,6 +47,7 @@
     <string name="pin_more">Cannot more than 4 numbers.</string>
     <string name="pattern_less">Connect at least 4 dots. Try again</string>
     <string name="sorry">Sorry, try again</string>
+    <string name="lock_option">Lock option</string>
 
     <string-array name="packageName">
         <item>com.facebook.katana</item>

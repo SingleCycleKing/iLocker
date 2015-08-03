@@ -7,33 +7,30 @@
     android:padding="@dimen/default_padding">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="60dp"
+        android:layout_height="60dp">
 
         <ImageView
             android:id="@+id/item_app_icon"
             android:layout_width="@dimen/app_icon_size"
             android:layout_height="@dimen/app_icon_size"
             android:layout_centerHorizontal="true"
-            android:scaleType="centerCrop"
+            android:layout_centerInParent="true"
             android:contentDescription="@null"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
         <ImageView
             android:id="@+id/item_app_selected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@id/item_app_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
             android:contentDescription="@null"
-            android:src="@mipmap/icon_selected"
-            android:visibility="gone" />
+            android:src="@mipmap/icon_selected" />
 
     </RelativeLayout>
 
     <TextView
-        android:layout_marginTop="5dp"
         android:id="@+id/item_app_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
