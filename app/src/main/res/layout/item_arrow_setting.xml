@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/default_padding">
 
-
-
     <TextView
         android:drawableEnd="@mipmap/icon_arrow"
-        android:id="@+id/item_arrow_text"
+        android:id="@+id/item_arrow"
         android:layout_width="match_parent"
         android:textSize="@dimen/text_size_tertiary"
         android:layout_height="wrap_content"

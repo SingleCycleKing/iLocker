@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Aquarids/Project/AppLocker/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/classes-c7f8046789bccfcb1bc3a38c5355b4cc2fa0e46d.jar" />
+    </item>
+    <item
+        jar="/Users/Aquarids/Project/AppLocker/app/libs/butterknife.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/butterknife-f96cdd8f084424c93e1863f81c27bce7f45c3985.jar" />
+    </item>
+    <item
+        jar="/Users/Aquarids/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-4fbdcb8645700cc2d8023558b7935a3ff6fc9ee8.jar" />
+    </item>
+    <item
+        jar="/Users/Aquarids/Project/AppLocker/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/classes-e444f0fb917de73dddf22ebd151600e979359390.jar" />
+    </item>
+    <item
+        jar="/Users/Aquarids/Project/AppLocker/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-9933f19c89fb6717f55ec36d731de140f982da34.jar" />
+    </item>
+    <item
+        jar="/Users/Aquarids/Project/AppLocker/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/classes-c5e80409c91747860b9dad9a9ed5df51394f67eb.jar" />
+    </item>
+    <item
+        jar="/Users/Aquarids/Project/AppLocker/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="/Users/Aquarids/Project/AppLocker/app/build/intermediates/pre-dexed/debug/classes-a3cf160d7e82ac1d539437c707ffb84e08ee0c9a.jar" />
+    </item>
+
+</items>

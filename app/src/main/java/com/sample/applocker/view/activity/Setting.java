@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.sample.applocker.adapter.SettingAdapter;
@@ -17,15 +18,18 @@ import com.sample.applocker.view.widget.CheckButton;
 import com.sample.applocker.view.widget.DividerItemDecoration;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class Setting extends BaseActivity {
-
 
 
     @InjectView(R.id.item_once_check_box)
     CheckButton onceCheck;
     @InjectView(R.id.item_every_check_box)
     CheckButton everyCheck;
+    @OnClick(R.id.item_arrow)void setPassword(){
+        startActivity(new Intent(Setting.this,SetPassword.class));
+    }
 
     @InjectView(R.id.item_once_check)
     RelativeLayout onceCheckLayout;
