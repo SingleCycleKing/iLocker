@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dotc.applocker.view.fragment.PatternLock">
+    tools:context="com.sample.applocker.view.fragment.PatternLock">
 
-    <com.dotc.applocker.view.widget.pattern.PatternView
+    <com.sample.applocker.view.widget.pattern.PatternView
         android:id="@+id/pattern_lock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

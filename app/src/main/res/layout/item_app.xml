@@ -15,6 +15,7 @@
             android:layout_width="@dimen/app_icon_size"
             android:layout_height="@dimen/app_icon_size"
             android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
             android:contentDescription="@null"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
@@ -32,6 +33,7 @@
     </RelativeLayout>
 
     <TextView
+        android:layout_marginTop="5dp"
         android:id="@+id/item_app_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

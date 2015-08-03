@@ -8,13 +8,13 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.dotc.applocker.MyApplication"
+        android:name="com.sample.applocker.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.dotc.applocker.view.activity.AppList"
+            android:name="com.sample.applocker.view.activity.AppList"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,13 +25,13 @@
         </activity>
 
         <service
-            android:name="com.dotc.applocker.service.AppStartService"
+            android:name="com.sample.applocker.service.AppStartService"
             android:enabled="true"
             android:exported="false"
             android:persistent="true" />
 
         <receiver
-            android:name="com.dotc.applocker.service.StickyReceiver"
+            android:name="com.sample.applocker.service.StickyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -46,18 +46,17 @@
         </receiver>
 
         <activity
-            android:name="com.dotc.applocker.view.activity.Lock"
+            android:name="com.sample.applocker.view.activity.Lock"
             android:label="@string/title_activity_lock"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dotc.applocker.view.activity.Setting"
+            android:name="com.sample.applocker.view.activity.Setting"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dotc.applocker.view.activity.SetPassword"
+            android:name="com.sample.applocker.view.activity.SetPassword"
             android:label="@string/title_activity_set_password"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>
 

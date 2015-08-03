@@ -5,8 +5,8 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.dotc.applocker"
-        minSdkVersion 17123
+        applicationId "com.sample.applocker"
+        minSdkVersion 17
 
         targetSdkVersion 22
         versionCode 1

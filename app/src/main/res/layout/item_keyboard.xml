@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <com.dotc.applocker.view.widget.LockButton
+    <com.sample.applocker.view.widget.LockButton
         android:id="@+id/key_number"
         android:layout_width="50dp"
         android:layout_height="50dp" />
