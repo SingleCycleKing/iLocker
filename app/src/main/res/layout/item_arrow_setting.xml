@@ -2,21 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/default_padding"
     android:paddingTop="@dimen/default_padding">
 
-    <ImageView
-        android:id="@+id/item_arrow_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@null"
-        android:src="@mipmap/icon_arrow" />
+
 
     <TextView
+        android:drawableEnd="@mipmap/icon_arrow"
         android:id="@+id/item_arrow_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:textSize="@dimen/text_size_tertiary"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

@@ -22,7 +22,6 @@ import com.sample.applocker.service.AppStartService;
 import com.sample.applocker.util.AppConstant;
 import com.sample.applocker.util.BasicUtil;
 import com.sample.applocker.util.CharacterParser;
-import com.sample.applocker.util.DebugLog;
 import com.sample.applocker.util.PhonemeComparator;
 import com.sample.applocker.view.fragment.Dialog;
 
@@ -65,8 +64,6 @@ public class AppList extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        DebugLog.e("re init");
         if (requestCode == AppConstant.APP_START_REQUEST && resultCode == AppConstant.APP_START_SUCCEED) {
             setting.setVisibility(View.VISIBLE);
             mStartLayout.setVisibility(View.GONE);
@@ -119,7 +116,6 @@ public class AppList extends BaseActivity {
                 for (String string : strings) {
                     if (mInfo.packageName.equals(string)) {
                         AppModel mModel = new AppModel();
-                        DebugLog.e(mInfo.packageName);
                         mModel.setPackageName(mInfo.packageName);
                         mModel.setLabel(mInfo.loadLabel(manager).toString());
                         mModels.add(mModel);

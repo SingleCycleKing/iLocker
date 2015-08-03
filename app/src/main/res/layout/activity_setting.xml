@@ -7,12 +7,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/setting_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/default_padding"
-        android:paddingStart="@dimen/default_padding" />
+    <include layout="@layout/item_arrow_setting" />
 
     <View
         android:layout_width="match_parent"

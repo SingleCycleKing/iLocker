@@ -2,13 +2,11 @@ package com.sample.applocker.view.fragment;
 
 
 import android.content.SharedPreferences;
-import android.os.Debug;
 import android.os.Handler;
 
 import com.avazu.applocker.R;
 import com.sample.applocker.util.AppConstant;
 import com.sample.applocker.util.BasicUtil;
-import com.sample.applocker.util.DebugLog;
 import com.sample.applocker.view.widget.Indicator;
 import com.sample.applocker.view.widget.Keyboard;
 
@@ -85,7 +83,6 @@ public class SetPinPassword extends BaseFragment {
         editor.putInt(AppConstant.APP_LOCK_TYPE, AppConstant.APP_LOCK_PIN);
         editor.apply();
         getActivity().setResult(AppConstant.APP_START_SUCCEED);
-        DebugLog.e("save");
         getActivity().finish();
     }
 

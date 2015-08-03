@@ -20,8 +20,7 @@ import butterknife.InjectView;
 
 public class Setting extends BaseActivity {
 
-    @InjectView(R.id.setting_list)
-    RecyclerView mSettingList;
+
 
     @InjectView(R.id.item_once_check_box)
     CheckButton onceCheck;
@@ -75,21 +74,8 @@ public class Setting extends BaseActivity {
     }
 
     private void initList() {
-        SettingAdapter mAdapter = new SettingAdapter(this);
 
-        mSettingList.setLayoutManager(new WrappingLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mSettingList.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider), true, false));
-        mSettingList.setAdapter(mAdapter);
-        mSettingList.addOnItemTouchListener(new OnRecyclerItemClickListener(this, new OnRecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                switch (position) {
-                    case 0:
-                        startActivityForResult(new Intent(Setting.this, SetPassword.class), 300);
-                        break;
-                }
-            }
-        }));
+
     }
 
     @Override
