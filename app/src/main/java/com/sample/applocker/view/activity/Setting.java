@@ -50,8 +50,10 @@ public class Setting extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void init() {
-        if (null != getSupportActionBar())
+        if (null != getSupportActionBar()) {
+            getSupportActionBar().setHomeAsUpIndicator(R.mipmap.back);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         title.setText(getResources().getString(R.string.setting_title));
 
@@ -71,7 +73,6 @@ public class Setting extends BaseActivity implements View.OnClickListener {
 
         vibrateBox.setChecked(settings.getBoolean(AppConstant.APP_VIBRATE_ON_TOUCH, false));
         visibleBox.setChecked(settings.getBoolean(AppConstant.APP_LOCK_PATTERN_ENABLE, false));
-
 
 
     }

@@ -28,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         mTitle.setText(getResources().getString(R.string.app_name));
         setSupportActionBar(mToolbar);
+
         init();
     }
 

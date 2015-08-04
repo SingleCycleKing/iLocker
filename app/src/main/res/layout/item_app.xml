@@ -7,8 +7,8 @@
     android:padding="@dimen/default_padding">
 
     <RelativeLayout
-        android:layout_width="60dp"
-        android:layout_height="60dp">
+        android:layout_width="55dp"
+        android:layout_height="55dp">
 
         <ImageView
             android:id="@+id/item_app_icon"

@@ -7,7 +7,6 @@ import android.view.animation.Animation;
 import com.avazu.applocker.R;
 import com.sample.applocker.util.AppConstant;
 import com.sample.applocker.util.BasicUtil;
-import com.sample.applocker.util.DebugLog;
 import com.sample.applocker.view.widget.Indicator;
 import com.sample.applocker.view.widget.Keyboard;
 
@@ -68,10 +67,6 @@ public class KeyboardLock extends BaseFragment {
                         editor.apply();
 
                         unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
-                        for (String s : unlockedSet) {
-                            DebugLog.e(s + "fuck");
-                        }
-
                         getActivity().finish();
                     } else {
                         mIndicator.isWrong(true);

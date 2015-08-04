@@ -40,9 +40,10 @@ public class SetPassword extends BaseNoActionBarActivity implements View.OnClick
 
     @Override
     protected void init() {
-        if (null != getSupportActionBar())
+        if (null != getSupportActionBar()) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+            getSupportActionBar().setHomeAsUpIndicator(R.mipmap.back);
+        }
         mFragments = new ArrayList<>();
 
         initPager();

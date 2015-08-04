@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.sample.applocker.adapter.PagerAdapter;
@@ -26,12 +28,21 @@ public class Lock extends BaseActivity {
     @InjectView(R.id.lock_icon)
     ImageView icon;
 
+    @InjectView(R.id.ic_launcher)
+    ImageView appIcon;
+
+    @InjectView(R.id.toolbar_title)
+    TextView title;
+
     private PagerAdapter mPagerAdapter;
     private SharedPreferences sharedPreferences;
 
 
     @Override
     protected void init() {
+        appIcon.setVisibility(View.VISIBLE);
+        title.setText(getResources().getString(R.string.lock_title));
+
         try {
             String appName = getIntent().getStringExtra("packageName");
             icon.setImageDrawable(this.getPackageManager().getApplicationIcon(appName));
