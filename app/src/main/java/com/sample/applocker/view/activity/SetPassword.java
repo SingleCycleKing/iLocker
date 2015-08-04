@@ -99,8 +99,14 @@ public class SetPassword extends BaseNoActionBarActivity implements View.OnClick
                         cancel.setText(R.string.retry);
                         break;
                     case CONFIRM:
+                        confirm.setBackgroundResource(R.drawable.background_disable);
+                        confirm.setOnClickListener(null);
                         inputTip.setText(getResources().getString(R.string.confirm_pattern));
                         mStatus = PASSWORD_STATUS.CONFIRM;
+                        break;
+                    case CONFIRM_COMPLETED:
+                        confirm.setBackgroundResource(R.drawable.background_enable);
+                        confirm.setOnClickListener(SetPassword.this);
                         break;
                     case CONFIRM_FAILED:
                         inputTip.setText(getResources().getString(R.string.pattern_error));
@@ -129,7 +135,13 @@ public class SetPassword extends BaseNoActionBarActivity implements View.OnClick
                         confirm.setOnClickListener(SetPassword.this);
                         cancel.setText(R.string.retry);
                         break;
+                    case CONFIRM_COMPLETED:
+                        confirm.setBackgroundResource(R.drawable.background_enable);
+                        confirm.setOnClickListener(SetPassword.this);
+                        break;
                     case CONFIRM:
+                        confirm.setBackgroundResource(R.drawable.background_disable);
+                        confirm.setOnClickListener(null);
                         inputTip.setText(getResources().getString(R.string.confirm_pin));
                         mStatus = PASSWORD_STATUS.CONFIRM;
                         break;

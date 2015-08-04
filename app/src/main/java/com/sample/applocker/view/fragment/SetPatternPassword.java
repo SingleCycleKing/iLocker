@@ -53,7 +53,6 @@ public class SetPatternPassword extends BaseFragment {
                     case NORMAL:
                         if (isNumberLess(cells)) {
                             mStatus = STATUS.INPUT_LESS;
-                            return;
                         } else {
                             inputPassword = BasicUtil.pattern2String(cells);
                             mStatus = STATUS.INPUT_COMPLETE;
@@ -109,7 +108,7 @@ public class SetPatternPassword extends BaseFragment {
             mPatternView.clearPattern();
             mStatus = STATUS.CONFIRM;
             onStatusChangedListener.onStatusChanged(mStatus);
-        }else if (mStatus==STATUS.CONFIRM_COMPLETED)
+        } else if (mStatus == STATUS.CONFIRM_COMPLETED)
             savePassword();
     }
 
@@ -132,6 +131,9 @@ public class SetPatternPassword extends BaseFragment {
             mPatternView.clearPattern();
             if (mStatus == STATUS.CONFIRM_FAILED) {
                 mStatus = STATUS.CONFIRM;
+                onStatusChangedListener.onStatusChanged(mStatus);
+            } else if (mStatus == STATUS.INPUT_LESS) {
+                mStatus = STATUS.NORMAL;
                 onStatusChangedListener.onStatusChanged(mStatus);
             }
         }

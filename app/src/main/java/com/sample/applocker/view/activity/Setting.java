@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.avazu.applocker.R;
 import com.sample.applocker.util.AppConstant;
-import com.sample.applocker.util.DebugLog;
 import com.sample.applocker.view.widget.CheckButton;
 
 import butterknife.InjectView;
@@ -111,7 +110,6 @@ public class Setting extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        DebugLog.e("fuck");
         if (requestCode == 300) {
             initList();
         }
