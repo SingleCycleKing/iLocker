@@ -4,6 +4,7 @@ public abstract class AppConstant {
     public static final String APP_KEY = "DOTC";
 
     public static final String APP_SETTING = "app_Setting";
+    public static final String APP_CURRENT = "app_current";
 
     public static final String APP_LOCK_TYPE = "app_lock_type";
     public static final int APP_LOCK_PATTERN = 0;

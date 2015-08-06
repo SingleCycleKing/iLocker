@@ -38,7 +38,6 @@ public class AppStartService extends Service {
             @Override
             public void run() {
                 sharedPreferences = getSharedPreferences(AppConstant.APP_SETTING, 0);
-
                 unlockedSet = sharedPreferences.getStringSet(AppConstant.APP_UNLOCKED, new HashSet<String>());
                 if (!sharedPreferences.getBoolean(AppConstant.APP_FIRST_OPEN, true)) {
                     getRunningApps();
@@ -53,7 +52,7 @@ public class AppStartService extends Service {
         List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
         if (runningApps != null) {
             for (ActivityManager.RunningAppProcessInfo runningApp : runningApps) {
-                if (runningApp.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && !runningApp.processName.equals("com.dotc.applocker")) {
+                if (runningApp.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                     getData(runningApp);
                     break;
                 }
@@ -62,14 +61,11 @@ public class AppStartService extends Service {
     }
 
     private void getData(ActivityManager.RunningAppProcessInfo runningApp) {
-        for (String name : unlockedSet) {
-            if (!name.equals(runningApp.processName) && AppConstant.APP_LOCK_EVERY_TIME == sharedPreferences.getInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE)) {
-                unlockedSet.clear();
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
-                editor.apply();
-                break;
-            }
+        if (!runningApp.processName.equals(sharedPreferences.getString(AppConstant.APP_CURRENT, "")) && AppConstant.APP_LOCK_EVERY_TIME == sharedPreferences.getInt(AppConstant.APP_LOCK_OPTION, AppConstant.APP_LOCK_ONCE)) {
+            unlockedSet.clear();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putStringSet(AppConstant.APP_UNLOCKED, unlockedSet);
+            editor.apply();
         }
         ArrayList<AppModel> mModels = mAppHelper.queryAll();
         for (int i = 0; i < mModels.size(); i++) {
@@ -89,11 +85,13 @@ public class AppStartService extends Service {
             }
         }
         if (!unlocked) {
-
             Intent newIntent = new Intent();
             newIntent.setClass(AppStartService.this, Lock.class);
             newIntent.putExtra("packageName", runningApp.processName);
             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(AppConstant.APP_CURRENT, runningApp.processName);
+            editor.apply();
             startActivity(newIntent);
         }
     }

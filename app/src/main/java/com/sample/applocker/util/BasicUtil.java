@@ -36,7 +36,6 @@ public class BasicUtil {
                 boolean hasItem = false;
                 for (int i = 0; i < selectedInfoList.size(); i++) {
                     if (selectedInfoList.get(i).getPackageName().equals(mModel.getPackageName())) {
-                        selectedInfoList.remove(i);
                         hasItem = true;
                         break;
                     }
