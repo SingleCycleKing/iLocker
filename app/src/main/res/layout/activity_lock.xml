@@ -9,6 +9,7 @@
     <include layout="@layout/toolbar" />
 
     <ImageView
+        android:layout_marginTop="20dp"
         android:id="@+id/lock_icon"
         android:layout_width="75dp"
         android:layout_height="75dp"

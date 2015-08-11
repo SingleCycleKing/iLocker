@@ -41,7 +41,7 @@ public class UnlockBackground {
 
     private Bitmap getZoomIcon() {
         Bitmap bitmap = BitmapFactory.decodeByteArray(originByte, 0, originByte.length);
-        return Bitmap.createScaledBitmap(bitmap, 2500, 2500, false);
+        return Bitmap.createScaledBitmap(bitmap, 1500, 1500, false);
     }
 
     private Drawable blur(Bitmap sentBitmap, int radius) {
@@ -61,7 +61,7 @@ public class UnlockBackground {
         Bitmap bitmap = Bitmap.createBitmap(mSize.x, mSize.y, Bitmap.Config.ARGB_8888);
         bitmap.eraseColor(Color.argb(255, mAverageColorInfo.getRed(), mAverageColorInfo.getGreen(), mAverageColorInfo.getBlue()));
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawBitmap(getZoomIcon(), mSize.x / 2 - 1250, mSize.y / 2 - 1250, null);
+        canvas.drawBitmap(getZoomIcon(), mSize.x / 2 - 750, mSize.y / 2 - 750, null);
         canvas.drawBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.transparent_background), 0, 0, null);
         canvas.save();
         return blur(bitmap, 20);
