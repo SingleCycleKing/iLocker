@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.avazu.applocker.R;
+import com.chartboost.sdk.Chartboost;
+import com.chartboost.sdk.Libraries.CBLogging;
 import com.sample.applocker.util.AppBackground;
 
 import butterknife.ButterKnife;
@@ -23,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().setBackgroundDrawable(AppBackground.getInstance(this));
         setContentView(getLayoutID());
         ButterKnife.inject(this);
