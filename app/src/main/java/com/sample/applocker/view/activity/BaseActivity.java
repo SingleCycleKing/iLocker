@@ -7,8 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.avazu.applocker.R;
-import com.chartboost.sdk.Chartboost;
-import com.chartboost.sdk.Libraries.CBLogging;
 import com.sample.applocker.util.AppBackground;
 
 import butterknife.ButterKnife;
